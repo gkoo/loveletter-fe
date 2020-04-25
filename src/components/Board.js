@@ -41,6 +41,7 @@ function Board() {
 
   return (
     <>
+      <h1>Love Communique</h1>
       {
         Object.values(players).map(player => {
           return (

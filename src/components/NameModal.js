@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
+import Row from 'react-bootstrap/Row';
 
 import { saveName } from '../store/actions';
 import { socketSelector } from '../store/selectors';
@@ -23,13 +25,18 @@ function NameModal({ show }) {
   return (
     <Modal show={show}>
       <Modal.Header>
-        <Modal.Title>Please enter a name</Modal.Title>
+        <Modal.Title>Welcome to Love Communique!</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSave}>
-          <label>Name:</label>
-          {' '}
-          <input type='text' onChange={onNameChange} value={name} />
+          <Row>
+            <Col xs={4}>
+              <label>Please enter a name:</label>
+            </Col>
+            <Col>
+              <input type='text' onChange={onNameChange} value={name} />
+            </Col>
+          </Row>
         </form>
       </Modal.Body>
       <Modal.Footer>

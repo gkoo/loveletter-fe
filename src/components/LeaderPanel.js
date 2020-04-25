@@ -13,7 +13,7 @@ import {
 } from '../constants';
 import { gameStateSelector } from '../store/selectors';
 
-function LeaderPanel() {
+function LeaderPanel({ numPlayers }) {
   const currPlayer = useSelector(currPlayerSelector);
   const gameState = useSelector(gameStateSelector);
   const socket = useSelector(socketSelector);
@@ -42,12 +42,20 @@ function LeaderPanel() {
     socket.emit('debug');
   };
 
+  const startGameEnabled = () => {
+    if (![STATE_PENDING, STATE_GAME_END].includes(gameState)) { return false; }
+
+    if (numPlayers < 1 || numPlayers > 4) { return false; }
+
+    return true;
+  };
+
   return (
     <div>
-      <ButtonGroup aria-label="Basic example">
+      <ButtonGroup>
         {
           [STATE_PENDING, STATE_GAME_END].includes(gameState) &&
-            <Button onClick={startGame}>Start game</Button>
+            <Button onClick={startGame} disabled={startGameEnabled()}>Start game</Button>
         }
         {
           gameState === STATE_ROUND_END &&

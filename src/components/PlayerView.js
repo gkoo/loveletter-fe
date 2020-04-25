@@ -47,7 +47,7 @@ function PlayerView({ player, active, allPlayers }) {
             <Card
               allPlayers={allPlayers}
               card={card}
-              clickable={activePlayerId === currPlayerId && gameState != STATE_GAME_END}
+              clickable={activePlayerId === currPlayerId && gameState !== STATE_GAME_END}
               clickCallback={handleClick}
               currPlayerId={currPlayerId}
               currHand={player.hand}

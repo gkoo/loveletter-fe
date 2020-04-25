@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, } from 'react';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-function MessageLog({ messages, players, socket }) {
+function MessageLog({ messages, players, onNewMessage }) {
   const [typedMessage, setTypedMessage] = useState('');
 
   const messagesRef = useRef(null);
@@ -33,7 +33,7 @@ function MessageLog({ messages, players, socket }) {
 
   const onSubmit = e => {
     e.preventDefault();
-    socket.emit('chatMessage', typedMessage);
+    onNewMessage(typedMessage);
     setTypedMessage('');
   }
 

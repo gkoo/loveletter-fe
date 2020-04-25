@@ -10,8 +10,34 @@ const initialState = {
   messages: [],
   socket: io(socketIoServerUrl),
 };
+const testState = {
+  ...initialState,
+  activePlayerId: 'gordon',
+  gameState: 1,
+  name: 'Gordon',
+  players: {
+    gordon: {
+      id: 'gordon',
+      name: 'Gordon',
+      hand: [
+        { id: 0, type: 3 },
+        { id: 1, type: 2 },
+      ],
+      isLeader: true,
+      discardPile: [{ id: 2, type: 5 }],
+    },
+    steve: {
+      id: 'steve',
+      name: 'Steve',
+      hand: [
+        { id: 0, type: 3 },
+      ],
+      discardPile: [{ id: 2, type: 5 }],
+    },
+  },
+};
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = testState, action) {
   let newMessages, newPlayers, players;
 
   switch(action.type) {

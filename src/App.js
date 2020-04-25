@@ -1,15 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-
 import Board from './components/Board';
-import LeaderPanel from './components/LeaderPanel';
-import MessageLog from './components/MessageLog';
+import Lobby from './components/Lobby';
 import NameModal from './components/NameModal';
-import PlayerList from './components/PlayerList';
 import {
   baronReveal,
   dismissReveal,
@@ -60,28 +54,14 @@ function App() {
 
   return (
     <>
-      <Container fluid>
-        <Row>
-          <Col>
-            {
-              gameState === STATE_PENDING &&
-                <PlayerList players={players} />
-            }
-            {
-              gameState !== STATE_PENDING &&
-                <Board />
-            }
-          </Col>
-          <Col>
-            <LeaderPanel/>
-            <MessageLog
-              messages={messages}
-              players={players}
-              socket={socket}
-            />
-          </Col>
-        </Row>
-      </Container>
+      {
+        gameState === STATE_PENDING &&
+          <Lobby messages={messages} players={players} socket={socket} />
+      }
+      {
+        gameState !== STATE_PENDING &&
+          <Board />
+      }
       <NameModal show={!name} />
     </>
   );
