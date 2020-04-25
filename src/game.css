@@ -11,6 +11,10 @@
   cursor: pointer;
 }
 
+.card.expanded {
+  height: 325px;
+}
+
 .card.clickable:hover {
   border-color: #f00;
 }
@@ -21,16 +25,13 @@
 }
 
 .player-view {
+  background-color: #333;
   padding: 20px;
   border-radius: 5px;
 }
 
 .player-view.active {
   background-color: #666;
-}
-
-.player-view.active .card {
-  height: 325px;
 }
 
 .lobby-container {

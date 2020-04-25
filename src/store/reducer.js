@@ -12,7 +12,8 @@ const initialState = {
 };
 const testState = {
   ...initialState,
-  activePlayerId: 'gordon',
+  activePlayerId: 'steve',
+  currPlayerId: 'gordon',
   gameState: 1,
   name: 'Gordon',
   players: {
@@ -37,7 +38,7 @@ const testState = {
   },
 };
 
-export default function reducer(state = testState, action) {
+export default function reducer(state = initialState, action) {
   let newMessages, newPlayers, players;
 
   switch(action.type) {

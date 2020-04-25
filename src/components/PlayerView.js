@@ -37,12 +37,18 @@ function PlayerView({ player, active, allPlayers }) {
   return (
     <div className={cx('player-view', { active })}>
       <div className='player-name'>
-        <h3>{player.name}</h3>
-        <p>{renderTokens()}</p>
+        <h3>{player.name} {renderTokens()}</h3>
       </div>
       {
         player.discardPile && player.discardPile.map(
-          discardCard => <Card key={discardCard.id} card={discardCard} isDiscard={true}/>
+          discardCard => (
+            <Card
+              key={discardCard.id}
+              card={discardCard}
+              isActivePlayer={playerIsActivePlayer}
+              isDiscard={true}
+            />
+          )
         )
       }
       {
@@ -55,6 +61,7 @@ function PlayerView({ player, active, allPlayers }) {
               clickCallback={handleClick}
               currPlayerId={currPlayerId}
               currHand={player.hand}
+              isActivePlayer={playerIsActivePlayer}
               isDiscard={false}
               key={card.id}
             />

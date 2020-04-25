@@ -27,7 +27,9 @@ function Card({
   clickCallback,
   currPlayerId,
   currHand,
+  isActivePlayer,
   isDiscard,
+  isRevealCard,
 }) {
   const [showCountessWarning, setShowCountessWarning] = useState(false);
   const [guardTargetId, setGuardTargetId] = useState('');
@@ -106,6 +108,7 @@ function Card({
   const classNames = cx('card', {
     discard: isDiscard,
     clickable,
+    expanded: isActivePlayer || isRevealCard,
   });
 
   const renderCard = () => {

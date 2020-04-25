@@ -8,7 +8,7 @@ function PriestRevealCardModal({ priestRevealCard }) {
   return (
     <Modal show={!!priestRevealCard}>
       <Modal.Body className='reveal-modal-body'>
-        <Card card={priestRevealCard} isDiscard={false} clickable={false} />
+        <Card card={priestRevealCard} isDiscard={false} clickable={false} isRevealCard={true} />
       </Modal.Body>
     </Modal>
   );

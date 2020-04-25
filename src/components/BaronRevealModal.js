@@ -19,8 +19,9 @@ function BaronRevealModal({ baronRevealData, players }) {
               <Card
                 key={revealData.playerId}
                 card={revealData.card}
-                isDiscard={false}
                 clickable={false}
+                isDiscard={false}
+                isRevealCard={true}
               />
             </div>
           )
