@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, } from 'react';
+
 import Button from 'react-bootstrap/Button';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 function MessageLog({ messages, players, socket }) {
   const [typedMessage, setTypedMessage] = useState('');
@@ -38,24 +40,24 @@ function MessageLog({ messages, players, socket }) {
   const renderMessage = ({ id, senderName, text, type }) => {
     if (type === 'system') {
       return (
-        <div key={id}>
+        <ListGroup.Item key={id}>
           {text}
-        </div>
+        </ListGroup.Item>
       );
     }
 
     return (
-      <div key={id}>
+      <ListGroup.Item key={id}>
         <strong>{senderName}</strong>: {text}
-      </div>
+      </ListGroup.Item>
     );
   };
 
   return (
     <>
-      <div className='message-log' ref={messagesRef}>
-        <>{messages.map(renderMessage)}</>
-      </div>
+      <ListGroup className='message-log' ref={messagesRef}>
+        {messages.map(renderMessage)}
+      </ListGroup>
       <form onSubmit={onSubmit}>
         <input type="text" value={typedMessage} onChange={onTypedMessageChange}/>
         <Button onClick={onSubmit}>Submit</Button>
