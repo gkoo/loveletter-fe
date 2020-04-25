@@ -1,3 +1,10 @@
+export const socketIoServerUrl = (
+  process.env.NODE_ENV === 'production' ?
+    'https://love-communique.herokuapp.com' :
+    'http://localhost:5000'
+);
+
+
 export const CARD_GUARD = 0;
 export const CARD_PRIEST = 1;
 export const CARD_BARON = 2;

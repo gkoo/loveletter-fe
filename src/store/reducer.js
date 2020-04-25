@@ -2,9 +2,7 @@ import io from 'socket.io-client';
 
 import * as actions from './actions';
 
-import { STATE_PENDING, STATE_GAME_END } from '../constants';
-
-const socketIoServerUrl = 'http://localhost:5000';
+import { socketIoServerUrl, STATE_PENDING, STATE_GAME_END } from '../constants';
 
 const initialState = {
   gameState: STATE_PENDING,
