@@ -1,6 +1,6 @@
 export const socketIoServerUrl = (
   process.env.NODE_ENV === 'production' ?
-    'https://love-communique.herokuapp.com' :
+    'https://love-communique-node.herokuapp.com/' :
     'http://localhost:5000'
 );
 
