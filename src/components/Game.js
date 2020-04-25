@@ -7,16 +7,16 @@ import Row from 'react-bootstrap/Row';
 import Board from './Board';
 import MessageLog from './MessageLog';
 
-function Game() {
+function Game({ socket, messages, players }) {
   const onNewChatMessage = msg => socket.emit('chatMessage', msg);
 
   return (
     <Container>
       <Row>
-        <Col>
+        <Col lg={9}>
           <Board />
         </Col>
-        <Col>
+        <Col lg={3}>
           <MessageLog
             messages={messages}
             players={players}

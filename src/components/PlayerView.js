@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import cx from 'classnames';
 
 import Card from './Card';
 import {
@@ -16,6 +17,9 @@ function PlayerView({ player, active, allPlayers }) {
   const gameState = useSelector(gameStateSelector);
   const socket = useSelector(socketSelector);
 
+  const playerIsCurrPlayer = player.id === currPlayerId;
+  const playerIsActivePlayer = player.id === activePlayerId;
+
   const handleClick = ({ card, effectData }) => {
     if (!active) { return; }
 
@@ -31,9 +35,9 @@ function PlayerView({ player, active, allPlayers }) {
   };
 
   return (
-    <div className='player-view'>
+    <div className={cx('player-view', { active })}>
       <div className='player-name'>
-        <h3>{player.name}{active && '*'}</h3>
+        <h3>{player.name}</h3>
         <p>{renderTokens()}</p>
       </div>
       {
@@ -47,7 +51,7 @@ function PlayerView({ player, active, allPlayers }) {
             <Card
               allPlayers={allPlayers}
               card={card}
-              clickable={activePlayerId === currPlayerId && gameState !== STATE_GAME_END}
+              clickable={playerIsCurrPlayer && playerIsActivePlayer && gameState !== STATE_GAME_END}
               clickCallback={handleClick}
               currPlayerId={currPlayerId}
               currHand={player.hand}

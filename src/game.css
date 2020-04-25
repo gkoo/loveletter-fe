@@ -1,19 +1,36 @@
 .card {
   background-color: #fff;
-  border: 5px solid #f00;
   color: #000;
   display: inline-block;
   width: 200px;
-  height: 325px;
+  height: 50px;
 }
 
 .card.clickable {
+  border: 5px solid #0f0;
   cursor: pointer;
+}
+
+.card.clickable:hover {
+  border-color: #f00;
 }
 
 .card.discard {
   background-color: #aaa;
   width: 50px;
+}
+
+.player-view {
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.player-view.active {
+  background-color: #666;
+}
+
+.player-view.active .card {
+  height: 325px;
 }
 
 .lobby-container {

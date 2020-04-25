@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Board from './components/Board';
+import Game from './components/Game';
 import Lobby from './components/Lobby';
 import NameModal from './components/NameModal';
 import {
@@ -60,7 +60,7 @@ function App() {
       }
       {
         gameState !== STATE_PENDING &&
-          <Board />
+          <Game socket={socket} messages={messages} players={players} />
       }
       <NameModal show={!name} />
     </>
