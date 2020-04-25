@@ -177,7 +177,7 @@ function Card({
     }
     // Remove handmaid from targets
     targetCandidates = targetCandidates.filter(
-      player => !player.discardPile.length || player.discardPile[player.discardPile.length - 1].type !== CARD_HANDMAID,
+      player => !player.handmaidActive,
     );
 
     if (targetCandidates.length === 0) {

@@ -22,7 +22,7 @@ function Game({ socket, messages, players }) {
           <MessageLog
             messages={messages}
             players={players}
-            onNewChatMessage={onNewChatMessage}
+            onNewMessage={onNewChatMessage}
           />
         </Col>
       </Row>
