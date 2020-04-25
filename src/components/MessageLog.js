@@ -22,10 +22,12 @@ function MessageLog({ messages, players, socket }) {
   useEffect(() => {
     const messagesEl = messagesRef.current;
     if (!messagesEl) { return; }
-    if (messagesEl.scrollTop > (messagesEl.scrollHeight - messagesEl.clientHeight) - 50) {
-      messagesEl.scrollTop = messagesEl.scrollHeight;
+    const { scrollTop, scrollHeight, clientHeight } = messagesEl;
+    // - 200 accounts for the height of the newly added system message
+    if (scrollTop > (scrollHeight - clientHeight) - 200) {
+      messagesEl.scrollTop = scrollHeight;
     }
-  });
+  }, [messages.length]);
 
   const onSubmit = e => {
     e.preventDefault();
