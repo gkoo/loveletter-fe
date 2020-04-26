@@ -32,6 +32,11 @@ function LeaderPanel({ numPlayers }) {
     socket.emit('startGame');
   };
 
+  const newGame = e => {
+    e.preventDefault();
+    socket.emit('setPending');
+  };
+
   const nextRound = e => {
     e.preventDefault();
     socket.emit('nextRound');
@@ -63,7 +68,7 @@ function LeaderPanel({ numPlayers }) {
       return <Button onClick={startGame}>Start game</Button>;
     }
     // TODO: make this take you back to the lobby
-    return <Button onClick={startGame}>New game</Button>;
+    return <Button onClick={newGame}>New game</Button>;
   };
 
   return (
