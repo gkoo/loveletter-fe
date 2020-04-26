@@ -109,6 +109,14 @@ function Card({
     discard: isDiscard,
     clickable,
     expanded: isActivePlayer || isRevealCard,
+    guard: card.type === CARD_GUARD,
+    priest: card.type === CARD_PRIEST,
+    baron: card.type === CARD_BARON,
+    handmaid: card.type === CARD_HANDMAID,
+    prince: card.type === CARD_PRINCE,
+    king: card.type === CARD_KING,
+    countess: card.type === CARD_COUNTESS,
+    princess: card.type === CARD_PRINCESS,
   });
 
   const renderCard = () => {
