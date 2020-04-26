@@ -48,7 +48,12 @@ const testState = {
   },
 };
 
-export default function reducer(state = testState, action) {
+// Change to true to develop UI
+const debug = false;
+
+const stateToUse = debug ? testState : initialState;
+
+export default function reducer(state = stateToUse, action) {
   let name, newMessages, newPlayers, newUsers, players;
 
   switch(action.type) {
