@@ -10,7 +10,7 @@ import {
   dismissAlertMessage,
   dismissReveal,
   endGame,
-  newPlayer,
+  newUser,
   newLeader,
   newMessage,
   playerDisconnect,
@@ -27,6 +27,7 @@ import {
   nameSelector,
   playersSelector,
   socketSelector,
+  usersSelector,
 } from './store/selectors';
 
 import './bootstrap.min.css';
@@ -40,6 +41,7 @@ function App() {
   const name = useSelector(nameSelector);
   const players = useSelector(playersSelector);
   const socket = useSelector(socketSelector);
+  const users = useSelector(usersSelector);
 
   const onDismissAlertMessage = () => dispatch(dismissAlertMessage());
 
@@ -51,18 +53,18 @@ function App() {
     socket.on('endGame', winnerIds => dispatch(endGame(winnerIds)));
     socket.on('initData', data => dispatch(receiveInitData(data)));
     socket.on('gameData', gameData => dispatch(receiveGameData(gameData)));
-    socket.on('newPlayer', player => dispatch(newPlayer(player)));
+    socket.on('newUser', user => dispatch(newUser(user)));
     socket.on('newLeader', playerId => dispatch(newLeader(playerId)));
     socket.on('message', message => dispatch(newMessage(message)));
     socket.on('priestReveal', card => dispatch(priestReveal(card)));
-    socket.on('playerDisconnect', playerId => dispatch(playerDisconnect(playerId)));
+    socket.on('userDisconnect', playerId => dispatch(playerDisconnect(playerId)));
   }, [socket, dispatch]);
 
   return (
     <>
       {
         gameState === STATE_PENDING &&
-          <Lobby messages={messages} players={players} socket={socket} />
+          <Lobby players={players} messages={messages} users={users} socket={socket} />
       }
       {
         gameState !== STATE_PENDING &&

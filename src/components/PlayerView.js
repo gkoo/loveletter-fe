@@ -5,7 +5,7 @@ import cx from 'classnames';
 import Card from './Card';
 import {
   activePlayerIdSelector,
-  currPlayerIdSelector,
+  currUserIdSelector,
   gameStateSelector,
   socketSelector,
 } from '../store/selectors';
@@ -13,11 +13,11 @@ import { STATE_STARTED } from '../constants';
 
 function PlayerView({ player, active, allPlayers }) {
   const activePlayerId = useSelector(activePlayerIdSelector);
-  const currPlayerId = useSelector(currPlayerIdSelector);
+  const currUserId = useSelector(currUserIdSelector);
   const gameState = useSelector(gameStateSelector);
   const socket = useSelector(socketSelector);
 
-  const playerIsCurrPlayer = player.id === currPlayerId;
+  const playerIsCurrPlayer = player.id === currUserId;
   const playerIsActivePlayer = player.id === activePlayerId;
 
   const handleClick = ({ card, effectData }) => {
@@ -59,7 +59,7 @@ function PlayerView({ player, active, allPlayers }) {
               card={card}
               clickable={playerIsCurrPlayer && playerIsActivePlayer && gameState === STATE_STARTED}
               clickCallback={handleClick}
-              currPlayerId={currPlayerId}
+              currPlayerId={currUserId}
               currHand={player.hand}
               isActivePlayer={playerIsActivePlayer}
               isDiscard={false}

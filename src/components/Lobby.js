@@ -8,7 +8,7 @@ import LeaderPanel from './LeaderPanel';
 import MessageLog from './MessageLog';
 import PlayerList from './PlayerList';
 
-function Lobby({ messages, players, socket }) {
+function Lobby({ messages, players, users, socket }) {
   const onNewChatMessage = msg => socket.emit('chatMessage', msg);
 
   return (
@@ -16,13 +16,12 @@ function Lobby({ messages, players, socket }) {
       <Container className="lobby-container">
         <Row>
           <Col xs={6} lg={{ offset: 3, span: 3 }}>
-            <PlayerList players={players} />
+            <PlayerList users={users} />
           </Col>
           <Col xs={6} lg={{ span: 3 }}>
             <LeaderPanel numPlayers={Object.keys(players).length}/>
             <MessageLog
               messages={messages}
-              players={players}
               onNewMessage={onNewChatMessage}
             />
           </Col>

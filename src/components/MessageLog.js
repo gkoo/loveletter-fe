@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, } from 'react';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-function MessageLog({ messages, players, onNewMessage }) {
+function MessageLog({ messages, onNewMessage }) {
   const [typedMessage, setTypedMessage] = useState('');
 
   const messagesRef = useRef(null);

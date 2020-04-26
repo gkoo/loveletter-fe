@@ -47,23 +47,29 @@ function LeaderPanel({ numPlayers }) {
     socket.emit('debug');
   };
 
+  const wrongNumPlayers = numPlayers < 1 || numPlayers > 4;
+
   const startGameEnabled = () => {
     if (![STATE_PENDING, STATE_GAME_END].includes(gameState)) { return false; }
 
-    if (numPlayers < 1 || numPlayers > 4) { return false; }
-
     return true;
+  };
+
+  const renderStartGameButton = () => {
+    //if (numPlayers < 1 || numPlayers > 4) {
+      //return <Button onClick={startGame} disabled>Start game</Button>;
+    //}
+    if (gameState === STATE_PENDING) {
+      return <Button onClick={startGame}>Start game</Button>;
+    }
+    // TODO: make this take you back to the lobby
+    return <Button onClick={startGame}>New game</Button>;
   };
 
   return (
     <div>
       <ButtonGroup>
-        {
-          startGameEnabled() && <Button onClick={startGame}>Start game</Button>
-        }
-        {
-          !startGameEnabled() && <Button onClick={startGame} disabled>Start game</Button>
-        }
+        {renderStartGameButton()}
         {
           gameState === STATE_ROUND_END &&
             <Button onClick={nextRound}>Next round</Button>

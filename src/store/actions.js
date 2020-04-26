@@ -7,7 +7,7 @@ export const END_GAME = 'END_GAME';
 export const RECEIVE_GAME_DATA = 'RECEIVE_GAME_DATA';
 export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const NEW_LEADER = 'NEW_LEADER';
-export const NEW_PLAYER = 'NEW_PLAYER';
+export const NEW_USER = 'NEW_USER';
 export const PLAYER_DISCONNECT = 'PLAYER_DISCONNECT';
 export const PRIEST_REVEAL = 'PRIEST_REVEAL';
 export const RECEIVE_DEBUG_INFO = 'RECEIVE_DEBUG_INFO';
@@ -69,10 +69,10 @@ export function newMessage(message) {
   }
 }
 
-export function newPlayer({ id, name, isLeader }) {
+export function newUser({ id, name, isLeader }) {
   return {
     payload: { id, name, isLeader },
-    type: NEW_PLAYER,
+    type: NEW_USER,
   }
 }
 
@@ -83,9 +83,9 @@ export function receiveDebugInfo(data) {
   }
 }
 
-export function receiveInitData({ currPlayerId, messages, players }) {
+export function receiveInitData({ currUserId, messages, users }) {
   return {
-    payload: { currPlayerId, messages, players },
+    payload: { currUserId, messages, users },
     type: RECEIVE_INIT_DATA,
   }
 }

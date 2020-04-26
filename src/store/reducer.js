@@ -10,13 +10,14 @@ const initialState = {
   debugEnabled: env !== 'production',
   gameState: STATE_PENDING,
   players: {},
+  users: {},
   messages: [],
   socket: io(socketIoServerUrl),
 };
 const testState = {
   ...initialState,
   activePlayerId: 'steve',
-  currPlayerId: 'gordon',
+  currUserId: 'gordon',
   gameState: 1,
   name: 'Gordon',
   players: {
@@ -101,23 +102,21 @@ export default function reducer(state = initialState, action) {
         players: newPlayers,
       };
 
-    case actions.NEW_PLAYER:
+    case actions.NEW_USER:
       const { id, isLeader } = action.payload;
       name = action.payload.name;
-      const oldPlayer = state.players[id] || {};
-      const newPlayer = {
-        ...oldPlayer,
-        id,
-        name,
-        isLeader,
-      };
-      newPlayers = {
-        ...state.players,
-      };
-      newPlayers[id] = newPlayer;
+      const oldUser = state.users[id] || {};
+
       return {
         ...state,
-        players: newPlayers,
+        users: {
+          ...state.users,
+          [id]: {
+            ...oldUser,
+            name,
+            isLeader,
+          },
+        },
       };
 
     case actions.PLAYER_DISCONNECT:
@@ -172,13 +171,12 @@ export default function reducer(state = initialState, action) {
       };
 
     case actions.RECEIVE_INIT_DATA:
-      const { currPlayerId, messages } = action.payload;
-      players = action.payload.players;
+      const { currUserId, messages, users } = action.payload;
       return {
         ...state,
-        currPlayerId,
+        currUserId,
         messages,
-        players,
+        users,
       };
 
     case actions.SAVE_NAME:

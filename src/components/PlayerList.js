@@ -1,14 +1,14 @@
 import React from 'react';
 
-function PlayerList({ players }) {
+function PlayerList({ users }) {
   return (
     <>
       <h4>Players</h4>
       {
-        Object.values(players).map(player => {
-          return player.name && (
-            <div key={player.id}>
-              {player.isLeader && '👑'} {player.name}
+        Object.values(users).map(user => {
+          return user.name && (
+            <div key={user.id}>
+              {user.isLeader && '👑'} {user.name}
             </div>
           )
         })
