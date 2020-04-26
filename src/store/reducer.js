@@ -119,17 +119,24 @@ export default function reducer(state = initialState, action) {
         },
       };
 
-    case actions.PLAYER_DISCONNECT:
-      const disconnectedPlayerId = action.payload.playerId;
+    case actions.USER_DISCONNECT:
+      const disconnectedUserId = action.payload.userId;
+      const newUsers = {};
       newPlayers = {};
+      Object.keys(state.users).forEach(userId => {
+        if (userId !== disconnectedUserId) {
+          newUsers[userId] = state.users[userId];
+        }
+      });
       Object.keys(state.players).forEach(playerId => {
-        if (playerId !== disconnectedPlayerId) {
+        if (playerId !== disconnectedUserId) {
           newPlayers[playerId] = state.players[playerId];
         }
       });
       return {
         ...state,
         players: newPlayers,
+        users: newUsers,
       }
 
     case actions.NEW_MESSAGE:

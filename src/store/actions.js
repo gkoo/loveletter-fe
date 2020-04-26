@@ -8,7 +8,7 @@ export const RECEIVE_GAME_DATA = 'RECEIVE_GAME_DATA';
 export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const NEW_LEADER = 'NEW_LEADER';
 export const NEW_USER = 'NEW_USER';
-export const PLAYER_DISCONNECT = 'PLAYER_DISCONNECT';
+export const USER_DISCONNECT = 'USER_DISCONNECT';
 export const PRIEST_REVEAL = 'PRIEST_REVEAL';
 export const RECEIVE_DEBUG_INFO = 'RECEIVE_DEBUG_INFO';
 export const RECEIVE_INIT_DATA = 'RECEIVE_INIT_DATA';
@@ -97,10 +97,10 @@ export function saveName(name) {
   }
 }
 
-export function playerDisconnect(playerId) {
+export function userDisconnect(userId) {
   return {
-    payload: { playerId },
-    type: PLAYER_DISCONNECT,
+    payload: { userId },
+    type: USER_DISCONNECT,
   }
 }
 

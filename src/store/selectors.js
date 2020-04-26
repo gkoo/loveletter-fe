@@ -9,6 +9,11 @@ export const messagesSelector = state => state.messages;
 export const nameSelector = state => state.name;
 export const socketSelector = state => state.socket;
 export const currUserIdSelector = state => state.currUserId;
+export const currUserSelector = createSelector(
+  currUserIdSelector,
+  usersSelector,
+  (currUserId, users) => users[currUserId],
+)
 export const currPlayerSelector = createSelector(
   currUserIdSelector,
   playersSelector,

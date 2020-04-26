@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 import {
-  currPlayerSelector,
+  currUserSelector,
   debugEnabledSelector,
   socketSelector,
 } from '../store/selectors';
@@ -18,12 +18,12 @@ import {
 import { gameStateSelector } from '../store/selectors';
 
 function LeaderPanel({ numPlayers }) {
-  const currPlayer = useSelector(currPlayerSelector);
+  const currUser = useSelector(currUserSelector);
   const debugEnabled = useSelector(debugEnabledSelector);
   const gameState = useSelector(gameStateSelector);
   const socket = useSelector(socketSelector);
 
-  if (!currPlayer || !currPlayer.isLeader) {
+  if (!currUser || !currUser.isLeader) {
     return <div/>;
   }
 
