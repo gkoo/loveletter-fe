@@ -1,10 +1,12 @@
 import io from 'socket.io-client';
 
+import { env } from '../constants';
 import * as actions from './actions';
 
 import { socketIoServerUrl, STATE_PENDING, STATE_GAME_END } from '../constants';
 
 const initialState = {
+  debugEnabled: env !== 'production',
   gameState: STATE_PENDING,
   players: {},
   messages: [],
@@ -39,7 +41,7 @@ const testState = {
 };
 
 export default function reducer(state = initialState, action) {
-  let newMessages, newPlayers, players;
+  let name, newMessages, newPlayers, players;
 
   switch(action.type) {
     case actions.BARON_REVEAL:
@@ -86,7 +88,8 @@ export default function reducer(state = initialState, action) {
       };
 
     case actions.NEW_PLAYER:
-      const { id, name, isLeader } = action.payload;
+      const { id, isLeader } = action.payload;
+      name = action.payload.name;
       const oldPlayer = state.players[id] || {};
       const newPlayer = {
         ...oldPlayer,
@@ -165,9 +168,11 @@ export default function reducer(state = initialState, action) {
       };
 
     case actions.SAVE_NAME:
+      name = action.payload.name;
       return {
         ...state,
-        name: action.payload.name,
+        debugEnabled: name === 'Gordon' || state.debugEnabled, // >_<
+        name: name,
       };
 
     default:

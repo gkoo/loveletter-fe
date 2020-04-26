@@ -9,7 +9,7 @@ import {
   gameStateSelector,
   socketSelector,
 } from '../store/selectors';
-import { STATE_GAME_END } from '../constants';
+import { STATE_STARTED } from '../constants';
 
 function PlayerView({ player, active, allPlayers }) {
   const activePlayerId = useSelector(activePlayerIdSelector);
@@ -57,7 +57,7 @@ function PlayerView({ player, active, allPlayers }) {
             <Card
               allPlayers={allPlayers}
               card={card}
-              clickable={playerIsCurrPlayer && playerIsActivePlayer && gameState !== STATE_GAME_END}
+              clickable={playerIsCurrPlayer && playerIsActivePlayer && gameState === STATE_STARTED}
               clickCallback={handleClick}
               currPlayerId={currPlayerId}
               currHand={player.hand}

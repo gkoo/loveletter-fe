@@ -4,7 +4,11 @@ import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
-import { currPlayerSelector, socketSelector } from '../store/selectors';
+import {
+  currPlayerSelector,
+  debugEnabledSelector,
+  socketSelector,
+} from '../store/selectors';
 import {
   STATE_GAME_END,
   STATE_PENDING,
@@ -15,6 +19,7 @@ import { gameStateSelector } from '../store/selectors';
 
 function LeaderPanel({ numPlayers }) {
   const currPlayer = useSelector(currPlayerSelector);
+  const debugEnabled = useSelector(debugEnabledSelector);
   const gameState = useSelector(gameStateSelector);
   const socket = useSelector(socketSelector);
 
@@ -67,7 +72,10 @@ function LeaderPanel({ numPlayers }) {
           [STATE_STARTED, STATE_ROUND_END].includes(gameState) &&
             <Button onClick={endGame}>End game</Button>
         }
-        <Button onClick={debug}>Debug</Button>
+        {
+          debugEnabled &&
+            <Button onClick={debug}>Debug</Button>
+        }
       </ButtonGroup>
     </div>
   );
