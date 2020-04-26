@@ -4,6 +4,7 @@ export const alertMessageSelector = state => state.alertMessage;
 export const debugEnabledSelector = state => state.debugEnabled;
 export const gameStateSelector = state => state.gameState;
 export const playersSelector = state => state.players;
+export const playerOrderSelector = state => state.playerOrder;
 export const usersSelector = state => state.users;
 export const messagesSelector = state => state.messages;
 export const nameSelector = state => state.name;

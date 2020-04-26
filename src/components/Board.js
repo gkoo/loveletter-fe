@@ -9,8 +9,10 @@ import { closeEndGameModal } from '../store/actions';
 import {
   activePlayerIdSelector,
   baronRevealDataSelector,
+  currUserIdSelector,
   gameStateSelector,
   playersSelector,
+  playerOrderSelector,
   priestRevealCardSelector,
   winnerIdsSelector,
 } from '../store/selectors';
@@ -20,8 +22,10 @@ import { STATE_PENDING } from '../constants';
 function Board() {
   const activePlayerId = useSelector(activePlayerIdSelector);
   const baronRevealData = useSelector(baronRevealDataSelector);
+  const currUserId = useSelector(currUserIdSelector);
   const gameState = useSelector(gameStateSelector);
   const players = useSelector(playersSelector);
+  const playerOrder = useSelector(playerOrderSelector);
   const priestRevealCard = useSelector(priestRevealCardSelector);
   const winnerIds = useSelector(winnerIdsSelector);
 
@@ -35,12 +39,23 @@ function Board() {
     );
   }
 
+  if (Object.keys(players).length === 0) {
+    return <div/>;
+  }
+
   const onCloseEndGameModal = () => dispatch(closeEndGameModal());
+
+  const activePlayerTurnIdx = playerOrder.indexOf(currUserId);
+  // Show current player at the top, then rest of the players in order of turn order
+  const playerIdsInOrder = playerOrder.slice(activePlayerTurnIdx).concat(
+    playerOrder.slice(0, activePlayerTurnIdx)
+  );
+  const playersInOrder = playerIdsInOrder.map(playerId => players[playerId]);
 
   return (
     <>
       {
-        Object.values(players).map(player => {
+        Object.values(playersInOrder).map(player => {
           return (
             <PlayerView
               key={player.id}
