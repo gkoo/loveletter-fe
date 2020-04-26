@@ -21,4 +21,3 @@ export const currPlayerHandSelector = createSelector(
 export const baronRevealDataSelector = state => state.baronRevealData;
 export const priestRevealCardSelector = state => state.priestRevealCard;
 export const winnerIdsSelector = state => state.winnerIds;
-export const showEndGameModalSelector = state => state.showEndGameModal;

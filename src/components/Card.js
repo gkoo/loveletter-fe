@@ -224,7 +224,9 @@ function Card({
         <ToggleButtonGroup name="radio" onChange={onGuardNumberGuessChange}>
           {
             possibleNumbers.map(number =>
-              <ToggleButton type="radio" name="radio" value={number}>{number}</ToggleButton>
+              <ToggleButton key={number} type="radio" name="radio" value={number}>
+                {number}
+              </ToggleButton>
             )
           }
         </ToggleButtonGroup>

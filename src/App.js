@@ -42,7 +42,7 @@ function App() {
     socket.on('baronReveal', baronData => dispatch(baronReveal(baronData)));
     socket.on('debugInfo', data => dispatch(receiveDebugInfo(data)));
     socket.on('dismissReveal', () => dispatch(dismissReveal()));
-    socket.on('endGame', ({ winnerIds }) => dispatch(endGame(winnerIds)));
+    socket.on('endGame', winnerIds => dispatch(endGame(winnerIds)));
     socket.on('initData', data => dispatch(receiveInitData(data)));
     socket.on('gameData', gameData => dispatch(receiveGameData(gameData)));
     socket.on('newPlayer', player => dispatch(newPlayer(player)));

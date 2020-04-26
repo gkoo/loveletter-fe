@@ -52,7 +52,7 @@ export default function reducer(state = initialState, action) {
     case actions.CLOSE_END_GAME_MODAL:
       return {
         ...state,
-        showEndGameModal: false,
+        winnerIds: undefined,
       };
 
     case actions.DISMISS_REVEAL:
@@ -67,7 +67,6 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         gameState: STATE_GAME_END,
-        showEndGameModal: true,
         winnerIds,
       };
 

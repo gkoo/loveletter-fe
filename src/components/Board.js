@@ -12,7 +12,6 @@ import {
   gameStateSelector,
   playersSelector,
   priestRevealCardSelector,
-  showEndGameModalSelector,
   winnerIdsSelector,
 } from '../store/selectors';
 import PlayerView from './PlayerView';
@@ -24,7 +23,6 @@ function Board() {
   const gameState = useSelector(gameStateSelector);
   const players = useSelector(playersSelector);
   const priestRevealCard = useSelector(priestRevealCardSelector);
-  const showEndGameModal = useSelector(showEndGameModalSelector);
   const winnerIds = useSelector(winnerIdsSelector);
 
   const dispatch = useDispatch();
@@ -63,8 +61,8 @@ function Board() {
           <PriestRevealCardModal priestRevealCard={priestRevealCard} />
       }
       {
-        winnerIds && showEndGameModal &&
-          <WinnerModal show={showEndGameModal} players={players} winnerIds={winnerIds} onClose={onCloseEndGameModal}/>
+        winnerIds &&
+          <WinnerModal players={players} winnerIds={winnerIds} onClose={onCloseEndGameModal}/>
       }
     </>
   );
