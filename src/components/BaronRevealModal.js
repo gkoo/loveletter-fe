@@ -17,7 +17,7 @@ function BaronRevealModal({ baronRevealData, players }) {
             <div className='baron-reveal-card'>
               <h4>{revealData.name}</h4>
               <Card
-                key={revealData.playerId}
+                key={revealData.card.id}
                 card={revealData.card}
                 clickable={false}
                 isDiscard={false}

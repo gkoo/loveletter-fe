@@ -37,6 +37,21 @@ function MessageLog({ messages, onNewMessage }) {
     setTypedMessage('');
   }
 
+  // https://stackoverflow.com/a/16348977
+  const stringToColor = str => {
+    let hash = 0;
+    let i;
+    for (i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    var color = '#';
+    for (i = 0; i < 3; i++) {
+      var value = (hash >> (i * 8)) & 0xFF;
+      color += ('00' + value.toString(16)).substr(-2);
+    }
+    return color;
+  };
+
   const renderMessage = ({ id, senderName, text, type }) => {
     if (type === 'system') {
       return (
@@ -44,20 +59,6 @@ function MessageLog({ messages, onNewMessage }) {
           {text}
         </ListGroup.Item>
       );
-    }
-
-    // https://stackoverflow.com/a/16348977
-    const stringToColor = str => {
-      var hash = 0;
-      for (var i = 0; i < str.length; i++) {
-	  hash = str.charCodeAt(i) + ((hash << 5) - hash);
-      }
-      var color = '#';
-      for (var i = 0; i < 3; i++) {
-	var value = (hash >> (i * 8)) & 0xFF;
-	  color += ('00' + value.toString(16)).substr(-2);
-      }
-      return color;
     }
     return (
       <ListGroup.Item key={id}>
