@@ -186,7 +186,7 @@ function Card({
     }
     // Remove handmaid from targets
     targetCandidates = targetCandidates.filter(
-      player => !player.handmaidActive,
+      player => !player.handmaidActive || player.id === currPlayerId,
     );
 
     if (targetCandidates.length === 0) {
