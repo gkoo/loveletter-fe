@@ -1,10 +1,58 @@
 .card {
   background-color: #fff;
+  background-size: 200%;
   color: #000;
   display: inline-block;
   width: 200px;
   /*height: 50px;*/
   height: 325px;
+}
+
+.card.guard {
+  background-image: url(/img/stormtrooper.jpg);
+  background-position: 50% 41%;
+  background-size: 140%;
+}
+
+.card.priest {
+  background-image: url(/img/yoda.jpg);
+  background-size: 160%;
+  background-position: 52% 45%;
+}
+
+.card.baron {
+  background-image: url(/img/probe.jpg);
+  background-size: 207%;
+  background-position: 40% 50%;
+}
+
+.card.handmaid {
+  background-image: url(/img/boo.jpg);
+  background-position: 40% 50%;
+}
+
+.card.prince {
+  background-image: url(/img/spiderchan.jpg);
+  background-size: 160%;
+  background-position: 25% 130%;
+}
+
+.card.king {
+  background-image: url(/img/klappar.jpg);
+  background-size: 150%;
+  background-position: 40% 50%;
+}
+
+.card.countess {
+  background-image: url(/img/bread.jpg);
+  background-size: 180%;
+  background-position: 40% 40%;
+}
+
+.card.princess {
+  background-image: url(/img/dude.jpg);
+  background-size: 200%;
+  background-position: 45% 50%;
 }
 
 .card.clickable {
@@ -22,7 +70,32 @@
 
 .card.discard {
   background-color: #aaa;
+  background-size: 1000%;
+  opacity: 50%;
   width: 50px;
+}
+
+.card.discard.guard {
+  background-size: 700%;
+}
+
+.card.discard.priest {
+}
+
+.card.discard.handmaid {
+}
+
+.card.discard.prince {
+}
+
+.card.discard.king {
+}
+
+.card.discard.countess {
+  background-position: 40% 50%;
+}
+
+.card.discard.princess {
 }
 
 .player-view {

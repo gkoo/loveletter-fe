@@ -24,12 +24,18 @@ const testState = {
     gordon: {
       id: 'gordon',
       name: 'Gordon',
-      hand: [
-        { id: 0, type: 3 },
-        { id: 1, type: 2 },
+      discardPile: [
+        { id: 2, type: 2 },
+        { id: 0, type: 0 },
+        { id: 6, type: 6 },
+        { id: 1, type: 1 },
+        { id: 5, type: 5 },
+        { id: 7, type: 7 },
+        { id: 3, type: 3 },
+        { id: 4, type: 4 },
       ],
       isLeader: true,
-      discardPile: [{ id: 2, type: 5 }],
+      hand: [{ id: 2, type: 5 }],
     },
     steve: {
       id: 'steve',
@@ -42,7 +48,7 @@ const testState = {
   },
 };
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = testState, action) {
   let name, newMessages, newPlayers, newUsers, players;
 
   switch(action.type) {
