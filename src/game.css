@@ -81,6 +81,12 @@
   background: #000;
 }
 
+.card.discard > .circle {
+  width: 45px;
+  height: 45px;
+  line-height: 43px;
+}
+
 .card.title {
   width: 130px;
   height: 50px;
