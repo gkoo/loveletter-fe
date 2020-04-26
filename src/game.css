@@ -99,7 +99,7 @@
 .card.discard {
   background-color: #aaa;
   background-size: 1000%;
-  opacity: 50%;
+  opacity: 0.5;
   width: 50px;
 }
 
