@@ -55,9 +55,9 @@ export function receiveGameData(gameData) {
   }
 }
 
-export function newLeader(playerId) {
+export function newLeader(userId) {
   return {
-    payload: { playerId },
+    payload: { userId },
     type: NEW_LEADER,
   }
 }

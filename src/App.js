@@ -54,7 +54,7 @@ function App() {
     socket.on('initData', data => dispatch(receiveInitData(data)));
     socket.on('gameData', gameData => dispatch(receiveGameData(gameData)));
     socket.on('newUser', user => dispatch(newUser(user)));
-    socket.on('newLeader', playerId => dispatch(newLeader(playerId)));
+    socket.on('newLeader', userId => dispatch(newLeader(userId)));
     socket.on('message', message => dispatch(newMessage(message)));
     socket.on('priestReveal', card => dispatch(priestReveal(card)));
     socket.on('userDisconnect', userId => dispatch(userDisconnect(userId)));

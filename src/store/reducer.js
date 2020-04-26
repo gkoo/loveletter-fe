@@ -43,7 +43,7 @@ const testState = {
 };
 
 export default function reducer(state = initialState, action) {
-  let name, newMessages, newPlayers, players;
+  let name, newMessages, newPlayers, newUsers, players;
 
   switch(action.type) {
     case actions.BARON_REVEAL:
@@ -88,18 +88,18 @@ export default function reducer(state = initialState, action) {
       };
 
     case actions.NEW_LEADER:
-      const { playerId } = action.payload;
-      const player = {
-        ...state.players[playerId],
+      const { userId } = action.payload;
+      const user = {
+        ...state.users[userId],
         isLeader: true,
       };
-      newPlayers = {
-        ...state.players,
-        [playerId]: player,
+      newUsers = {
+        ...state.users,
+        [userId]: user,
       };
       return {
         ...state,
-        players: newPlayers,
+        users: newUsers,
       };
 
     case actions.NEW_USER:
@@ -121,8 +121,8 @@ export default function reducer(state = initialState, action) {
 
     case actions.USER_DISCONNECT:
       const disconnectedUserId = action.payload.userId;
-      const newUsers = {};
       newPlayers = {};
+      newUsers = {};
       Object.keys(state.users).forEach(userId => {
         if (userId !== disconnectedUserId) {
           newUsers[userId] = state.users[userId];
