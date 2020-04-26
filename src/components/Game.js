@@ -15,6 +15,9 @@ function Game({ socket, messages, players }) {
   return (
     <Container>
       <Row>
+        <Col><h1>Love Communique</h1></Col>
+      </Row>
+      <Row>
         <Col lg={9}>
           <Board />
         </Col>
