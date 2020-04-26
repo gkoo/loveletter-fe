@@ -37,7 +37,11 @@ function PlayerView({ player, active, allPlayers }) {
   return (
     <div className={cx('player-view', { active })}>
       <div className='player-name'>
-        <h3>{player.name} {renderTokens()}</h3>
+        <h3>
+          {player.isKnockedOut && '💀'}
+          {player.name}
+          {renderTokens()}
+        </h3>
       </div>
       {
         player.discardPile && player.discardPile.map(
