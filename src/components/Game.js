@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 import Board from './Board';
+import Guide from './Guide';
 import LeaderPanel from './LeaderPanel';
 import MessageLog from './MessageLog';
 
@@ -24,6 +25,7 @@ function Game({ socket, messages, players }) {
             players={players}
             onNewMessage={onNewChatMessage}
           />
+          <Guide />
         </Col>
       </Row>
     </Container>
