@@ -61,7 +61,7 @@ function MessageLog({ messages, onNewMessage }) {
     }
     return (
       <ListGroup.Item key={id}>
-        <strong style={{color: stringToColour(senderName)}}>{senderName}</strong>: {text}
+        <strong style={{color: stringToColor(senderName)}}>{senderName}</strong>: {text}
       </ListGroup.Item>
     );
   };
