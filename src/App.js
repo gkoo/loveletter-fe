@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import AlertMessageModal from './components/AlertMessageModal';
 import Game from './components/Game';
 import Lobby from './components/Lobby';
 import NameModal from './components/NameModal';
 import {
   baronReveal,
+  dismissAlertMessage,
   dismissReveal,
   endGame,
   newPlayer,
@@ -19,6 +21,7 @@ import {
 } from './store/actions';
 import { STATE_PENDING } from './constants';
 import {
+  alertMessageSelector,
   gameStateSelector,
   messagesSelector,
   nameSelector,
@@ -31,11 +34,14 @@ import './game.css';
 
 function App() {
   const dispatch = useDispatch();
+  const alertMessage = useSelector(alertMessageSelector);
   const gameState = useSelector(gameStateSelector);
   const messages = useSelector(messagesSelector);
   const name = useSelector(nameSelector);
   const players = useSelector(playersSelector);
   const socket = useSelector(socketSelector);
+
+  const onDismissAlertMessage = () => dispatch(dismissAlertMessage());
 
   // Include second arg to prevent this from running multiple times
   useEffect(() => {
@@ -63,6 +69,7 @@ function App() {
           <Game socket={socket} messages={messages} players={players} />
       }
       <NameModal show={!name} />
+      <AlertMessageModal alertMessage={alertMessage} onClose={onDismissAlertMessage}/>
     </>
   );
 }

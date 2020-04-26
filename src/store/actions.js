@@ -1,6 +1,7 @@
 // Action Types
 export const BARON_REVEAL = 'BARON_REVEAL';
 export const CLOSE_END_GAME_MODAL = 'CLOSE_END_GAME_MODAL';
+export const DISMISS_ALERT_MESSAGE = 'DISMISS_ALERT_MESSAGE';
 export const DISMISS_REVEAL = 'DISMISS_REVEAL';
 export const END_GAME = 'END_GAME';
 export const RECEIVE_GAME_DATA = 'RECEIVE_GAME_DATA';
@@ -12,6 +13,7 @@ export const PRIEST_REVEAL = 'PRIEST_REVEAL';
 export const RECEIVE_DEBUG_INFO = 'RECEIVE_DEBUG_INFO';
 export const RECEIVE_INIT_DATA = 'RECEIVE_INIT_DATA';
 export const SAVE_NAME = 'SAVE_NAME';
+export const SHOW_ALERT = 'SHOW_ALERT';
 
 // Actions
 export function baronReveal(baronData) {
@@ -24,6 +26,12 @@ export function baronReveal(baronData) {
 export function closeEndGameModal() {
   return {
     type: CLOSE_END_GAME_MODAL,
+  }
+}
+
+export function dismissAlertMessage() {
+  return {
+    type: DISMISS_ALERT_MESSAGE,
   }
 }
 
@@ -100,5 +108,12 @@ export function priestReveal(card) {
   return {
     payload: { card },
     type: PRIEST_REVEAL,
+  }
+}
+
+export function showAlert(msg) {
+  return {
+    payload: msg,
+    type: SHOW_ALERT,
   }
 }

@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 
+export const alertMessageSelector = state => state.alertMessage;
 export const debugEnabledSelector = state => state.debugEnabled;
 export const gameStateSelector = state => state.gameState;
 export const playersSelector = state => state.players;

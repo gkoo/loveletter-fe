@@ -6,6 +6,7 @@ import * as actions from './actions';
 import { socketIoServerUrl, STATE_PENDING, STATE_GAME_END } from '../constants';
 
 const initialState = {
+  alertMessage: undefined,
   debugEnabled: env !== 'production',
   gameState: STATE_PENDING,
   players: {},
@@ -57,6 +58,12 @@ export default function reducer(state = initialState, action) {
         winnerIds: undefined,
       };
 
+    case actions.DISMISS_ALERT_MESSAGE:
+      return {
+        ...state,
+        alertMessage: undefined,
+      };
+
     case actions.DISMISS_REVEAL:
       return {
         ...state,
@@ -66,10 +73,17 @@ export default function reducer(state = initialState, action) {
 
     case actions.END_GAME:
       const winnerIds = action.payload;
+      let alertMessage;
+      if (winnerIds) {
+        const winnerNames = winnerIds && winnerIds.map(winnerId => state.players[winnerId].name);
+        alertMessage = `${winnerNames.join(' and ')} won the game!`;
+      } else {
+        alertMessage = 'The game has ended.';
+      }
       return {
         ...state,
         gameState: STATE_GAME_END,
-        winnerIds,
+        alertMessage,
       };
 
     case actions.NEW_LEADER:
@@ -173,6 +187,12 @@ export default function reducer(state = initialState, action) {
         ...state,
         debugEnabled: name === 'Gordon' || state.debugEnabled, // >_<
         name: name,
+      };
+
+    case actions.SHOW_ALERT:
+      return {
+        ...state,
+        alertMessage: action.payload,
       };
 
     default:
