@@ -168,7 +168,7 @@ export default function reducer(state = stateToUse, action) {
       return state;
 
     case actions.RECEIVE_GAME_DATA:
-      const { activePlayerId, roundNum } = action.payload;
+      const { activePlayerId, playerOrder, roundNum } = action.payload;
       const gameState = action.payload.state;
       players = action.payload.players;
 
@@ -185,6 +185,7 @@ export default function reducer(state = stateToUse, action) {
         activePlayerId,
         gameState,
         players: newPlayers,
+        playerOrder,
         roundNum,
       };
 

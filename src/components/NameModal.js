@@ -10,7 +10,7 @@ import { saveName } from '../store/actions';
 import { socketSelector } from '../store/selectors';
 
 function NameModal({ show }) {
-  const [name, setName] = useState('Gordon');
+  const [name, setName] = useState('');
   const socket = useSelector(socketSelector);
   const dispatch = useDispatch();
 
