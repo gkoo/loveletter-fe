@@ -28,5 +28,7 @@ export const activePlayerSelector = createSelector(
   (players, activePlayerId) => players[activePlayerId]
 );
 export const baronRevealDataSelector = state => state.baronRevealData;
+export const lastCardPlayedSelector = state => state.lastCardPlayed;
 export const priestRevealCardSelector = state => state.priestRevealCard;
+export const showLastCardPlayedSelector = state => state.showLastCardPlayed;
 export const winnerIdsSelector = state => state.winnerIds;

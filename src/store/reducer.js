@@ -5,6 +5,9 @@ import * as actions from './actions';
 
 import { socketIoServerUrl, STATE_PENDING, STATE_GAME_END } from '../constants';
 
+// Change to true to develop UI
+const useTestState = false;
+
 const initialState = {
   alertMessage: undefined,
   debugEnabled: env !== 'production',
@@ -20,6 +23,11 @@ const testState = {
   currUserId: 'gordon',
   gameState: 1,
   name: 'Gordon',
+  lastCardPlayed: {
+    playerId: 'gordon',
+    card: { id: 2, type: 5 },
+    discarded: true,
+  },
   players: {
     gordon: {
       id: 'gordon',
@@ -41,17 +49,15 @@ const testState = {
       id: 'steve',
       name: 'Steve',
       hand: [
-        { id: 0, type: 3 },
+        { id: 0, type: 5 },
       ],
       discardPile: [{ id: 2, type: 5 }],
     },
   },
+  playerOrder: ['gordon', 'steve'],
 };
 
-// Change to true to develop UI
-const debug = false;
-
-const stateToUse = debug ? testState : initialState;
+const stateToUse = useTestState ? testState : initialState;
 
 export default function reducer(state = stateToUse, action) {
   let name, newMessages, newPlayers, newUsers, players;
@@ -80,6 +86,7 @@ export default function reducer(state = stateToUse, action) {
       return {
         ...state,
         baronRevealData: undefined,
+        showLastCardPlayed: false,
         priestRevealCard: undefined,
       };
 
@@ -96,6 +103,13 @@ export default function reducer(state = stateToUse, action) {
         ...state,
         gameState: STATE_GAME_END,
         alertMessage,
+      };
+
+    case actions.LAST_CARD_PLAYED:
+      return {
+        ...state,
+        lastCardPlayed: action.payload,
+        showLastCardPlayed: true,
       };
 
     case actions.NEW_LEADER:

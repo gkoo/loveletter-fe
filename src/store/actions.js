@@ -4,13 +4,14 @@ export const CLOSE_END_GAME_MODAL = 'CLOSE_END_GAME_MODAL';
 export const DISMISS_ALERT_MESSAGE = 'DISMISS_ALERT_MESSAGE';
 export const DISMISS_REVEAL = 'DISMISS_REVEAL';
 export const END_GAME = 'END_GAME';
-export const RECEIVE_GAME_DATA = 'RECEIVE_GAME_DATA';
+export const LAST_CARD_PLAYED = 'LAST_CARD_PLAYED';
 export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const NEW_LEADER = 'NEW_LEADER';
 export const NEW_USER = 'NEW_USER';
 export const USER_DISCONNECT = 'USER_DISCONNECT';
 export const PRIEST_REVEAL = 'PRIEST_REVEAL';
 export const RECEIVE_DEBUG_INFO = 'RECEIVE_DEBUG_INFO';
+export const RECEIVE_GAME_DATA = 'RECEIVE_GAME_DATA';
 export const RECEIVE_INIT_DATA = 'RECEIVE_INIT_DATA';
 export const SAVE_NAME = 'SAVE_NAME';
 export const SHOW_ALERT = 'SHOW_ALERT';
@@ -101,6 +102,13 @@ export function userDisconnect(userId) {
   return {
     payload: { userId },
     type: USER_DISCONNECT,
+  }
+}
+
+export function lastCardPlayed(data) {
+  return {
+    payload: data,
+    type: LAST_CARD_PLAYED,
   }
 }
 

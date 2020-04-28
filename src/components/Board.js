@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import BaronRevealModal from './BaronRevealModal';
+import LastCardPlayedModal from './LastCardPlayedModal';
 import PriestRevealCardModal from './PriestRevealCardModal';
 import WinnerModal from './WinnerModal';
 import { closeEndGameModal } from '../store/actions';
@@ -11,9 +12,11 @@ import {
   baronRevealDataSelector,
   currUserIdSelector,
   gameStateSelector,
+  lastCardPlayedSelector,
   playersSelector,
   playerOrderSelector,
   priestRevealCardSelector,
+  showLastCardPlayedSelector,
   winnerIdsSelector,
 } from '../store/selectors';
 import PlayerView from './PlayerView';
@@ -24,9 +27,11 @@ function Board() {
   const baronRevealData = useSelector(baronRevealDataSelector);
   const currUserId = useSelector(currUserIdSelector);
   const gameState = useSelector(gameStateSelector);
+  const lastCardPlayed = useSelector(lastCardPlayedSelector);
   const players = useSelector(playersSelector);
   const playerOrder = useSelector(playerOrderSelector);
   const priestRevealCard = useSelector(priestRevealCardSelector);
+  const showLastCardPlayed = useSelector(showLastCardPlayedSelector);
   const winnerIds = useSelector(winnerIdsSelector);
 
   const dispatch = useDispatch();
@@ -73,6 +78,14 @@ function Board() {
       {
         priestRevealCard &&
           <PriestRevealCardModal priestRevealCard={priestRevealCard} />
+      }
+      {
+        <LastCardPlayedModal
+          currUserId={currUserId}
+          lastCardPlayed={lastCardPlayed}
+          showLastCardPlayed={showLastCardPlayed}
+          players={players}
+        />
       }
       {
         winnerIds &&

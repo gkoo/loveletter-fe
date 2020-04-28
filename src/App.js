@@ -14,6 +14,7 @@ import {
   newLeader,
   newMessage,
   userDisconnect,
+  lastCardPlayed,
   priestReveal,
   receiveDebugInfo,
   receiveGameData,
@@ -56,6 +57,7 @@ function App() {
     socket.on('newUser', user => dispatch(newUser(user)));
     socket.on('newLeader', userId => dispatch(newLeader(userId)));
     socket.on('message', message => dispatch(newMessage(message)));
+    socket.on('lastCardPlayed', playCardData => dispatch(lastCardPlayed(playCardData)));
     socket.on('priestReveal', card => dispatch(priestReveal(card)));
     socket.on('userDisconnect', userId => dispatch(userDisconnect(userId)));
   }, [socket, dispatch]);
