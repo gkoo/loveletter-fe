@@ -24,7 +24,7 @@ function Homepage() {
         <Col>
           <h1>Hello World!</h1>
           <Link className='btn btn-primary' to={`/rooms/${roomCode}`}>
-            Join a room
+            Create a room
           </Link>
         </Col>
       </Row>

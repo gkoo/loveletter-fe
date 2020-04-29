@@ -107,7 +107,7 @@ export default function reducer(state = stateToUse, action) {
 
     case actions.JOIN_ROOM:
       return {
-        ...this.state,
+        ...state,
         roomCode: action.payload,
       };
 

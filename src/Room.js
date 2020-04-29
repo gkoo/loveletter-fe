@@ -24,16 +24,19 @@ function Room() {
   const socket = useSelector(selectors.socketSelector);
   const users = useSelector(selectors.usersSelector);
 
-  const { roomCodeParam } = useParams();
+  const roomCodeParam = useParams().roomCode;
 
   const onDismissAlertMessage = () => dispatch(actions.dismissAlertMessage());
+
+  const ROOM_CODE_PREFIX = 'room-';
 
   // Join room using room code
   useEffect(() => {
     // Just store the room code so that we don't try to join the room multiple times
     if (!roomCode) {
-      socket.emit('joinRoom', roomCodeParam);
-      dispatch(actions.joinRoom(roomCodeParam));
+      const socketIoRoomName = `${ROOM_CODE_PREFIX}${roomCodeParam}`;
+      socket.emit('joinRoom', socketIoRoomName);
+      dispatch(actions.joinRoom(socketIoRoomName));
     }
   }, [socket, dispatch, roomCode, roomCodeParam]);
 
@@ -61,7 +64,7 @@ function Room() {
         gameState === STATE_PENDING &&
           <Lobby
             messages={messages}
-            roomCode={roomCode}
+            roomCode={roomCodeParam}
             socket={socket}
             users={users}
           />
