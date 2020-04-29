@@ -9,7 +9,7 @@ import Guide from './Guide';
 import LeaderPanel from './LeaderPanel';
 import MessageLog from './MessageLog';
 
-function Game({ socket, messages, players }) {
+function Game({ socket, messages, users }) {
   const onNewChatMessage = msg => socket.emit('chatMessage', msg);
 
   return (
@@ -22,10 +22,9 @@ function Game({ socket, messages, players }) {
           <Board />
         </Col>
         <Col lg={3}>
-          <LeaderPanel numPlayers={Object.keys(players).length}/>
+          <LeaderPanel numUsers={Object.keys(users).length}/>
           <MessageLog
             messages={messages}
-            players={players}
             onNewMessage={onNewChatMessage}
           />
           <Guide />

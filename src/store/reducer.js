@@ -146,6 +146,12 @@ export default function reducer(state = stateToUse, action) {
 
     case actions.USER_DISCONNECT:
       const disconnectedUserId = action.payload.userId;
+      newUsers = {};
+      Object.keys(state.users).forEach(userId => {
+        if (disconnectedUserId !== userId) {
+          newUsers[userId] = state.users[userId];
+        }
+      });
       return {
         ...state,
         players: {
@@ -155,13 +161,7 @@ export default function reducer(state = stateToUse, action) {
             connected: false,
           },
         },
-        users: {
-          ...state.users,
-          [disconnectedUserId]: {
-            ...state.players[disconnectedUserId],
-            connected: false,
-          },
-        },
+        users: newUsers,
       }
 
     case actions.NEW_MESSAGE:
