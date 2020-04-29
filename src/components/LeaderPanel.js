@@ -17,7 +17,7 @@ import {
 } from '../constants';
 import { gameStateSelector } from '../store/selectors';
 
-function LeaderPanel({ numPlayers }) {
+function LeaderPanel({ numUsers }) {
   const currUser = useSelector(currUserSelector);
   const debugEnabled = useSelector(debugEnabledSelector);
   const gameState = useSelector(gameStateSelector);
@@ -52,19 +52,13 @@ function LeaderPanel({ numPlayers }) {
     socket.emit('debug');
   };
 
-  const wrongNumPlayers = numPlayers < 1 || numPlayers > 4;
-
-  const startGameEnabled = () => {
-    if (![STATE_PENDING, STATE_GAME_END].includes(gameState)) { return false; }
-
-    return true;
-  };
+  const wrongNumPlayers = numUsers < 2 || numUsers > 4;
 
   const renderStartGameButton = () => {
-    //if (numPlayers < 1 || numPlayers > 4) {
-      //return <Button onClick={startGame} disabled>Start game</Button>;
-    //}
     if (gameState === STATE_PENDING) {
+      if (wrongNumPlayers) {
+        return <Button onClick={startGame} disabled>Start game</Button>;
+      }
       return <Button onClick={startGame}>Start game</Button>;
     }
     // TODO: make this take you back to the lobby
@@ -74,7 +68,7 @@ function LeaderPanel({ numPlayers }) {
   return (
     <div>
       <ButtonGroup>
-        {renderStartGameButton()}
+        {[STATE_PENDING, STATE_GAME_END].includes(gameState) && renderStartGameButton()}
         {
           gameState === STATE_ROUND_END &&
             <Button onClick={nextRound}>Next round</Button>

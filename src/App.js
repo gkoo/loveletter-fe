@@ -66,11 +66,11 @@ function App() {
     <>
       {
         gameState === STATE_PENDING &&
-          <Lobby players={players} messages={messages} users={users} socket={socket} />
+          <Lobby messages={messages} users={users} socket={socket} />
       }
       {
         gameState !== STATE_PENDING &&
-          <Game socket={socket} messages={messages} players={players} />
+          <Game socket={socket} messages={messages} players={players} users={users} />
       }
       <NameModal show={!name} />
       <AlertMessageModal alertMessage={alertMessage} onClose={onDismissAlertMessage}/>
