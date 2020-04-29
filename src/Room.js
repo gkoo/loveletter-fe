@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import AlertMessageModal from './components/AlertMessageModal';
 import Game from './components/Game';
@@ -34,7 +35,7 @@ import {
 import './bootstrap.min.css';
 import './game.css';
 
-function App() {
+function Room() {
   const dispatch = useDispatch();
   const alertMessage = useSelector(alertMessageSelector);
   const gameState = useSelector(gameStateSelector);
@@ -43,6 +44,8 @@ function App() {
   const players = useSelector(playersSelector);
   const socket = useSelector(socketSelector);
   const users = useSelector(usersSelector);
+
+  const { roomCode } = useParams();
 
   const onDismissAlertMessage = () => dispatch(dismissAlertMessage());
 
@@ -66,7 +69,12 @@ function App() {
     <>
       {
         gameState === STATE_PENDING &&
-          <Lobby messages={messages} users={users} socket={socket} />
+          <Lobby
+            messages={messages}
+            roomCode={roomCode}
+            socket={socket}
+            users={users}
+          />
       }
       {
         gameState !== STATE_PENDING &&
@@ -78,4 +86,4 @@ function App() {
   );
 }
 
-export default App;
+export default Room;

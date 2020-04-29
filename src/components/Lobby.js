@@ -8,12 +8,17 @@ import LeaderPanel from './LeaderPanel';
 import MessageLog from './MessageLog';
 import PlayerList from './PlayerList';
 
-function Lobby({ messages, users, socket }) {
+function Lobby({ messages, roomCode, users, socket }) {
   const onNewChatMessage = msg => socket.emit('chatMessage', msg);
 
   return (
     <>
       <Container className="lobby-container">
+        <Row>
+          <Col>
+            <h1>Welcome to the {roomCode} room!</h1>
+          </Col>
+        </Row>
         <Row>
           <Col xs={6} lg={{ offset: 3, span: 3 }}>
             <PlayerList users={users} />
