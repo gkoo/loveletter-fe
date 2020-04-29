@@ -61,6 +61,18 @@
   cursor: pointer;
 }
 
+.card.clickable:last-of-type {
+  animation-name: slidein0;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: 1;
+}
+
+@keyframes slidein0 {
+  0%   {left: 30%;}
+  100% {left: 0%;}
+}
+
 /*.card.expanded {*/
   /*height: 325px;*/
 /*}*/
