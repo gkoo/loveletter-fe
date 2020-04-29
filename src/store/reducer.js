@@ -105,6 +105,12 @@ export default function reducer(state = stateToUse, action) {
         alertMessage,
       };
 
+    case actions.JOIN_ROOM:
+      return {
+        ...this.state,
+        roomCode: action.payload,
+      };
+
     case actions.LAST_CARD_PLAYED:
       return {
         ...state,

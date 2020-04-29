@@ -4,6 +4,7 @@ export const CLOSE_END_GAME_MODAL = 'CLOSE_END_GAME_MODAL';
 export const DISMISS_ALERT_MESSAGE = 'DISMISS_ALERT_MESSAGE';
 export const DISMISS_REVEAL = 'DISMISS_REVEAL';
 export const END_GAME = 'END_GAME';
+export const JOIN_ROOM = 'JOIN_ROOM';
 export const LAST_CARD_PLAYED = 'LAST_CARD_PLAYED';
 export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const NEW_LEADER = 'NEW_LEADER';
@@ -46,6 +47,13 @@ export function endGame(winnerIds) {
   return {
     payload: winnerIds,
     type: END_GAME,
+  }
+}
+
+export function joinRoom(roomCode) {
+  return {
+    payload: roomCode,
+    type: JOIN_ROOM,
   }
 }
 

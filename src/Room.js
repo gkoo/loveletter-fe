@@ -6,63 +6,53 @@ import AlertMessageModal from './components/AlertMessageModal';
 import Game from './components/Game';
 import Lobby from './components/Lobby';
 import NameModal from './components/NameModal';
-import {
-  baronReveal,
-  dismissAlertMessage,
-  dismissReveal,
-  endGame,
-  newUser,
-  newLeader,
-  newMessage,
-  userDisconnect,
-  lastCardPlayed,
-  priestReveal,
-  receiveDebugInfo,
-  receiveGameData,
-  receiveInitData,
-} from './store/actions';
 import { STATE_PENDING } from './constants';
-import {
-  alertMessageSelector,
-  gameStateSelector,
-  messagesSelector,
-  nameSelector,
-  playersSelector,
-  socketSelector,
-  usersSelector,
-} from './store/selectors';
+import * as actions from './store/actions';
+import * as selectors from './store/selectors';
 
 import './bootstrap.min.css';
 import './game.css';
 
 function Room() {
   const dispatch = useDispatch();
-  const alertMessage = useSelector(alertMessageSelector);
-  const gameState = useSelector(gameStateSelector);
-  const messages = useSelector(messagesSelector);
-  const name = useSelector(nameSelector);
-  const players = useSelector(playersSelector);
-  const socket = useSelector(socketSelector);
-  const users = useSelector(usersSelector);
+  const alertMessage = useSelector(selectors.alertMessageSelector);
+  const gameState = useSelector(selectors.gameStateSelector);
+  const messages = useSelector(selectors.messagesSelector);
+  const roomCode = useSelector(selectors.roomCodeSelector);
+  const name = useSelector(selectors.nameSelector);
+  const players = useSelector(selectors.playersSelector);
+  const socket = useSelector(selectors.socketSelector);
+  const users = useSelector(selectors.usersSelector);
 
-  const { roomCode } = useParams();
+  const { roomCodeParam } = useParams();
 
-  const onDismissAlertMessage = () => dispatch(dismissAlertMessage());
+  const onDismissAlertMessage = () => dispatch(actions.dismissAlertMessage());
+
+  // Join room using room code
+  useEffect(() => {
+    // Just store the room code so that we don't try to join the room multiple times
+    if (!roomCode) {
+      socket.emit('joinRoom', roomCodeParam);
+      dispatch(actions.joinRoom(roomCodeParam));
+    }
+  }, [socket, dispatch, roomCode, roomCodeParam]);
 
   // Include second arg to prevent this from running multiple times
   useEffect(() => {
-    socket.on('baronReveal', baronData => dispatch(baronReveal(baronData)));
-    socket.on('debugInfo', data => dispatch(receiveDebugInfo(data)));
-    socket.on('dismissReveal', () => dispatch(dismissReveal()));
-    socket.on('endGame', winnerIds => dispatch(endGame(winnerIds)));
-    socket.on('initData', data => dispatch(receiveInitData(data)));
-    socket.on('gameData', gameData => dispatch(receiveGameData(gameData)));
-    socket.on('newUser', user => dispatch(newUser(user)));
-    socket.on('newLeader', userId => dispatch(newLeader(userId)));
-    socket.on('message', message => dispatch(newMessage(message)));
-    socket.on('lastCardPlayed', playCardData => dispatch(lastCardPlayed(playCardData)));
-    socket.on('priestReveal', card => dispatch(priestReveal(card)));
-    socket.on('userDisconnect', userId => dispatch(userDisconnect(userId)));
+    if (!socket) { return; }
+
+    socket.on('baronReveal', baronData => dispatch(actions.baronReveal(baronData)));
+    socket.on('debugInfo', data => dispatch(actions.receiveDebugInfo(data)));
+    socket.on('dismissReveal', () => dispatch(actions.dismissReveal()));
+    socket.on('endGame', winnerIds => dispatch(actions.endGame(winnerIds)));
+    socket.on('initData', data => dispatch(actions.receiveInitData(data)));
+    socket.on('gameData', gameData => dispatch(actions.receiveGameData(gameData)));
+    socket.on('newUser', user => dispatch(actions.newUser(user)));
+    socket.on('newLeader', userId => dispatch(actions.newLeader(userId)));
+    socket.on('message', message => dispatch(actions.newMessage(message)));
+    socket.on('lastCardPlayed', playCardData => dispatch(actions.lastCardPlayed(playCardData)));
+    socket.on('priestReveal', card => dispatch(actions.priestReveal(card)));
+    socket.on('userDisconnect', userId => dispatch(actions.userDisconnect(userId)));
   }, [socket, dispatch]);
 
   return (
@@ -78,7 +68,12 @@ function Room() {
       }
       {
         gameState !== STATE_PENDING &&
-          <Game socket={socket} messages={messages} players={players} users={users} />
+          <Game
+            socket={socket}
+            messages={messages}
+            players={players}
+            users={users}
+          />
       }
       <NameModal show={!name} />
       <AlertMessageModal alertMessage={alertMessage} onClose={onDismissAlertMessage}/>
