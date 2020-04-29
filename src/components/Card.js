@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
-
-import Modal from 'react-bootstrap/Modal';
+import { useDispatch } from 'react-redux';
 
 import Button from 'react-bootstrap/Button';
 import Overlay from 'react-bootstrap/Overlay';
@@ -19,6 +18,7 @@ import {
   CARD_COUNTESS,
   CARD_PRINCESS,
 } from '../constants';
+import { showAlert } from '../store/actions';
 
 function Card({
   allPlayers,
@@ -31,10 +31,10 @@ function Card({
   isDiscard,
   isRevealCard,
 }) {
-  const [showCountessWarning, setShowCountessWarning] = useState(false);
   const [guardTargetId, setGuardTargetId] = useState('');
   const [guardNumberGuess, setGuardNumberGuess] = useState('');
   const [showTargetOptions, setShowTargetOptions] = useState(false);
+  const dispatch = useDispatch();
   const popoverTarget = useRef(null);
   const hasTargetEffect = [
     CARD_GUARD,
@@ -92,7 +92,9 @@ function Card({
 
     if (hasCountess && (hasKing || hasPrince)) {
       if (card.type !== CARD_COUNTESS) {
-        setShowCountessWarning(true);
+        const warningMsg = 'If you ever have the Countess and either the King or Prince in your ' +
+          'hand, you must discard the Countess.';
+        dispatch(showAlert(warningMsg));
         return;
       }
     }
@@ -251,8 +253,6 @@ function Card({
 
   const hideTargetOptions = () => setShowTargetOptions(false);
 
-  const hideCountessWarningModal = () => setShowCountessWarning(false);
-
   // For cards with target effects
   return (
     <>
@@ -272,17 +272,6 @@ function Card({
           </Popover.Content>
         </Popover>
       </Overlay>
-      <Modal show={showCountessWarning}>
-        <Modal.Body>
-          <p>
-            If you ever have the Countess and either the King or Prince in your hand,
-            you must discard the Countess.
-          </p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={hideCountessWarningModal}>OK</Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 }
