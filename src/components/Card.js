@@ -107,7 +107,7 @@ function Card({
     clickCallback({ card, effectData: {} });
   };
 
-  const classNames = cx('card', {
+  const classNames = cx('game-card', {
     discard: isDiscard,
     clickable,
     expanded: isActivePlayer || isRevealCard,

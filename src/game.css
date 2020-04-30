@@ -1,4 +1,4 @@
-.card {
+.game-card {
   background-color: #fff;
   background-size: 200%;
   color: #000;
@@ -9,59 +9,59 @@
   height: 325px;
 }
 
-.card.guard {
+.game-card.guard {
   background-image: url(/img/stormtrooper.jpg);
   background-position: 50% 41%;
   background-size: 140%;
 }
 
-.card.priest {
+.game-card.priest {
   background-image: url(/img/yoda.jpg);
   background-size: 160%;
   background-position: 52% 36%;
 }
 
-.card.baron {
+.game-card.baron {
   background-image: url(/img/probe.jpg);
   background-size: 207%;
   background-position: 40% 44%;
 }
 
-.card.handmaid {
+.game-card.handmaid {
   background-image: url(/img/boo.jpg);
   background-position: 40% 50%;
 }
 
-.card.prince {
+.game-card.prince {
   background-image: url(/img/spiderchan.jpg);
   background-size: 180%;
   background-position: 16% -28%;
 }
 
-.card.king {
+.game-card.king {
   background-image: url(/img/bread.jpg);
   background-size: 180%;
   background-position: 36% 24%;
 }
 
-.card.countess {
+.game-card.countess {
   background-image: url(/img/klappar.jpg);
   background-size: 150%;
   background-position: 40% 50%;
 }
 
-.card.princess {
+.game-card.princess {
   background-image: url(/img/dude.jpg);
   background-size: 200%;
   background-position: 45% 45%;
 }
 
-.card.clickable {
+.game-card.clickable {
   border: 5px solid #0f0;
   cursor: pointer;
 }
 
-.card.clickable:last-of-type {
+.game-card.clickable:last-of-type {
   animation-name: slidein0;
   animation-duration: 1s;
   animation-timing-function: ease-out;
@@ -73,15 +73,15 @@
   100% {left: 0%;}
 }
 
-/*.card.expanded {*/
+/*.game-card.expanded {*/
   /*height: 325px;*/
 /*}*/
 
-.card.clickable:hover {
+.game-card.clickable:hover {
   border-color: #f00;
 }
 
-.card.circle {
+.game-card.circle {
   width: 50px;
   height: 50px;
   top: 3px;
@@ -94,13 +94,13 @@
   background: #000;
 }
 
-.card.discard > .circle {
+.game-card.discard > .circle {
   width: 45px;
   height: 45px;
   line-height: 43px;
 }
 
-.card.title {
+.game-card.title {
   width: 130px;
   height: 50px;
   top: 3px;
@@ -109,40 +109,40 @@
   font-size: 26px;
 }
 
-.card.discard {
+.game-card.discard {
   background-color: #aaa;
   background-size: 1000%;
   opacity: 0.5;
   width: 50px;
 }
 
-.card.discard.guard {
+.game-card.discard.guard {
   background-size: 550%;
   background-position: 42% 30%;
 }
 
-.card.discard.priest {
+.game-card.discard.priest {
   background-size: 700%;
   background-position: 42% 38%;
 }
 
-.card.discard.handmaid {
+.game-card.discard.handmaid {
 }
 
-.card.discard.prince {
+.game-card.discard.prince {
   background-size: 700%;
   background-position: 40% -146%;
 }
 
-.card.discard.king {
+.game-card.discard.king {
   background-position: 31% 44%;
 }
 
-.card.discard.countess {
+.game-card.discard.countess {
   background-position: 40% 50%;
 }
 
-.card.discard.princess {
+.game-card.discard.princess {
   background-size: 1300%;
   background-position: 44% 47%;
 }
