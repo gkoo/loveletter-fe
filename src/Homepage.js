@@ -64,22 +64,24 @@ function Homepage() {
           <Card>
             <Card.Body>
               <h5>Join a room</h5>
-              <Form.Group controlId='roomCode'>
-                <ButtonToolbar>
-                  <InputGroup>
-                    <Form.Control
-                      placeholder='Room code'
-                      value={roomCode}
-                      onChange={onRoomCodeChange}
-                    />
-                  </InputGroup>
-                  <ButtonGroup>
-                    <Button variant='primary' onClick={joinRoom}>
-                      Join room
-                    </Button>
-                  </ButtonGroup>
-                </ButtonToolbar>
-              </Form.Group>
+              <Form onSubmit={joinRoom}>
+                <Form.Group controlId='roomCode'>
+                  <ButtonToolbar>
+                    <InputGroup>
+                      <Form.Control
+                        placeholder='Room code'
+                        value={roomCode}
+                        onChange={onRoomCodeChange}
+                      />
+                    </InputGroup>
+                    <ButtonGroup>
+                      <Button variant='primary' type='submit'>
+                        Join room
+                      </Button>
+                    </ButtonGroup>
+                  </ButtonToolbar>
+                </Form.Group>
+              </Form>
             </Card.Body>
           </Card>
         </Col>

@@ -124,8 +124,8 @@ function Card({
   const renderCard = () => {
     return (
       <div className={classNames} ref={popoverTarget} onClick={() => handleClick(card)}>
-        <div className='card circle'>{value}</div>
-        {!isDiscard && <div className='card title'>{label}</div>}
+        <div className='circle'>{value}</div>
+        {!isDiscard && <div className='title'>{label}</div>}
       </div>
     );
   };

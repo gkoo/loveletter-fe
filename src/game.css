@@ -1,3 +1,7 @@
+.center {
+  text-align: center;
+}
+
 /* HOMEPAGE */
 
 .jumbotron {
@@ -104,17 +108,18 @@
   border-color: #f00;
 }
 
-.game-card.circle {
+.game-card .circle {
   width: 50px;
   height: 50px;
-  top: 3px;
-  left: 3px;
+  margin-top: 3px;
+  margin-left: 3px;
   border-radius: 50%;
   font-size: 30px;
   color: #fff;
   line-height: 50px;
   text-align: center;
   background: #000;
+  display: inline-block;
 }
 
 .game-card.discard > .circle {
@@ -123,12 +128,11 @@
   line-height: 43px;
 }
 
-.game-card.title {
+.game-card .title {
+  display: inline-block;
   width: 130px;
   height: 50px;
-  top: 3px;
-  left: 10px;
-  border-style: none;
+  margin-left: 5px;
   font-size: 26px;
 }
 

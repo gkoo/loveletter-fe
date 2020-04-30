@@ -21,12 +21,16 @@ function Lobby({ messages, roomCode, users, socket }) {
             <h1 className='room-code'>{roomCode}</h1>
           </Col>
         </Row>
+        <Row style={{ 'margin-bottom': '20px' }}>
+          <Col className='center'>
+            <LeaderPanel numUsers={Object.keys(users).length}/>
+          </Col>
+        </Row>
         <Row>
           <Col xs={6} lg={{ offset: 3, span: 3 }}>
             <PlayerList users={users} />
           </Col>
           <Col xs={6} lg={{ span: 3 }}>
-            <LeaderPanel numUsers={Object.keys(users).length}/>
             <MessageLog
               messages={messages}
               onNewMessage={onNewChatMessage}
