@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup'
+import Jumbotron from 'react-bootstrap/Jumbotron';
 import Row from 'react-bootstrap/Row';
 
 import './bootstrap.min.css';
@@ -17,12 +18,18 @@ function Homepage() {
   const nameLength = 4;
   const history = useHistory();
   const [roomCode, setRoomCode] = useState('');
+  const vowels = ['a', 'e', 'i', 'o', 'u'];
 
   let generatedRoomCode = '';
   for (let i = 0; i < nameLength; ++i) {
-    const alphabetLength = 26;
-    const charCode = Math.floor(Math.random() * alphabetLength);
-    generatedRoomCode += String.fromCharCode('a'.charCodeAt(0) + charCode);
+    let generatedChar;
+    while (true) {
+      const alphabetLength = 26;
+      const charCode = Math.floor(Math.random() * alphabetLength);
+      generatedChar = String.fromCharCode('a'.charCodeAt(0) + charCode);
+      if (!vowels.includes(generatedChar)) { break; }
+    }
+    generatedRoomCode += generatedChar;
   }
 
   const onRoomCodeChange = (e) => setRoomCode(e.target.value);
@@ -32,12 +39,16 @@ function Homepage() {
   return (
     <Container>
       <Row>
-        <Col md={{ offset: 2 }}>
-          <h1>Love Communique</h1>
+        <Col lg={{ offset: 1, span: 10 }} xl={{ offset: 2, span: 8 }}>
+          <Jumbotron className='jumbotron'>
+            <h1>Love Communique</h1>
+            <p>Love. Power. Deceit. You'll find it all in Love Communique!</p>
+            <p><em>Get your communique to the Princess!</em></p>
+          </Jumbotron>
         </Col>
       </Row>
       <Row>
-        <Col md={{ offset: 2, span: 4 }}>
+        <Col md={6} lg={{ offset: 1, span: 5 }} xl={{ offset: 2, span: 4 }}>
           <Card>
             <Card.Body>
               <h5>Create a new room</h5>
@@ -49,7 +60,7 @@ function Homepage() {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={4}>
+        <Col md={6} lg={5} xl={4}>
           <Card>
             <Card.Body>
               <h5>Join a room</h5>

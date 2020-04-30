@@ -1,3 +1,26 @@
+/* HOMEPAGE */
+
+.jumbotron {
+  margin-top: 50px;
+}
+
+/* LOBBY */
+
+.lobby-title {
+  margin-bottom: 50px;
+  text-align: center
+}
+
+.room-code {
+  font-family: Courier New;
+}
+
+.share-link {
+  margin-top: 50px;
+}
+
+/* GAME */
+
 .game-card {
   background-color: #fff;
   background-size: 200%;

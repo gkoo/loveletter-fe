@@ -2,6 +2,7 @@ import React from 'react';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
 import LeaderPanel from './LeaderPanel';
@@ -15,8 +16,9 @@ function Lobby({ messages, roomCode, users, socket }) {
     <>
       <Container className="lobby-container">
         <Row>
-          <Col>
-            <h1>Welcome to the {roomCode} room!</h1>
+          <Col className='lobby-title'>
+            <h5>room code</h5>
+            <h1 className='room-code'>{roomCode}</h1>
           </Col>
         </Row>
         <Row>
@@ -29,6 +31,12 @@ function Lobby({ messages, roomCode, users, socket }) {
               messages={messages}
               onNewMessage={onNewChatMessage}
             />
+          </Col>
+        </Row>
+        <Row className='share-link'>
+          <Col xs={{ offset: 3, span: 6 }}>
+            Share this link and invite your friends!
+            <Form.Control value={window.location.href} disabled />
           </Col>
         </Row>
       </Container>
