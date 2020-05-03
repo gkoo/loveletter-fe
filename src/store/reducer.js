@@ -3,7 +3,26 @@ import io from 'socket.io-client';
 import { env } from '../constants';
 import * as actions from './actions';
 
-import { socketIoServerUrl, STATE_PENDING, STATE_GAME_END } from '../constants';
+import {
+  socketIoServerUrl,
+  CARD_GUARD,
+  //CARD_PRIEST,
+  CARD_BARON,
+  //CARD_HANDMAID,
+  CARD_PRINCE,
+  //CARD_KING,
+  //CARD_COUNTESS,
+  //CARD_PRINCESS,
+  //CARD_JESTER,
+  //CARD_CARDINAL,
+  //CARD_BARONESS,
+  //CARD_SYCOPHANT,
+  //CARD_DOWAGER_QUEEN,
+  //CARD_BISHOP,
+  STATE_PENDING,
+  STATE_STARTED,
+  STATE_GAME_END,
+} from '../constants';
 
 // Change to true to develop UI
 const useTestState = false;
@@ -19,39 +38,32 @@ const initialState = {
 };
 const testState = {
   ...initialState,
-  activePlayerId: 'steve',
+  activePlayerId: 'gordon',
   currUserId: 'gordon',
-  gameState: 1,
+  gameState: STATE_STARTED,
   name: 'Gordon',
-  lastCardPlayed: {
-    playerId: 'gordon',
-    card: { id: 2, type: 5 },
-    discarded: true,
-  },
+  //lastCardPlayed: {
+    //playerId: 'gordon',
+    //card: { id: 2, type: 5 },
+    //discarded: true,
+  //},
   players: {
     gordon: {
       id: 'gordon',
       name: 'Gordon',
       discardPile: [
-        { id: 2, type: 2 },
-        { id: 0, type: 0 },
-        { id: 6, type: 6 },
-        { id: 1, type: 1 },
-        { id: 5, type: 5 },
-        { id: 7, type: 7 },
-        { id: 3, type: 3 },
-        { id: 4, type: 4 },
+        { id: 101, type: CARD_BARON },
       ],
       isLeader: true,
-      hand: [{ id: 2, type: 5 }],
+      hand: [{ id: 100, type: CARD_GUARD }],
     },
     steve: {
       id: 'steve',
       name: 'Steve',
       hand: [
-        { id: 0, type: 5 },
+        { id: 0, type: CARD_PRINCE },
       ],
-      discardPile: [{ id: 2, type: 5 }],
+      discardPile: [{ id: 103, type: CARD_GUARD }],
     },
   },
   playerOrder: ['gordon', 'steve'],
