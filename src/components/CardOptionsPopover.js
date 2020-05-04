@@ -31,18 +31,35 @@ function CardOptionsPopover({
   target,
 }) {
   const [cardTargetId, setCardTargetId] = useState('');
+  const [cardMultiTargetIds, setCardMultiTargetId] = useState([]);
   const [cardNumberGuess, setCardNumberGuess] = useState('');
 
   const onTargetedPlayerChange = value => {
     setCardTargetId(value);
 
-    if (!showCardNumberButtons) { onPlayCard({ targetPlayerId: value }); }
-  }
+    if (card.type === CARD_CARDINAL) { return; }
+
+    if (!showCardNumberButtons) {
+      onPlayCard({ targetPlayerId: value });
+    }
+  };
+
+  const onMultiTargetedPlayerChange = value => {
+    if (value.length > 2) { return; }
+    setCardMultiTargetId(value);
+  };
 
   const onCardNumberGuessChange = value => setCardNumberGuess(value);
 
   const onOkClick = () => {
-    console.log(cardNumberGuess);
+    if (card.type === CARD_CARDINAL) {
+      onPlayCard({
+        multiTargetPlayerIds: cardMultiTargetIds,
+        revealPlayerId: cardTargetId,
+      });
+      return;
+    }
+
     onPlayCard({
       targetPlayerId: cardTargetId,
       cardNumberGuess,
@@ -72,9 +89,6 @@ function CardOptionsPopover({
       case CARD_JESTER:
         return 'Choose the player you think is most likely to win the round. If, at the end of ' +
          'the game, you\'ve chosen correctly, you receive a token.';
-      case CARD_CARDINAL:
-        return 'Choose two players to switch hands. Then, choose one of the two players and look ' +
-          'at their hand.';
       case CARD_BARONESS:
         return 'Choose one or two players and look at their hand.';
       case CARD_SYCOPHANT:
@@ -86,6 +100,8 @@ function CardOptionsPopover({
       case CARD_BISHOP:
         return 'Choose a player and guess the card number in their hand. If the player has that number ' +
           'in their hand, you receive a token.';
+      case CARD_CARDINAL:
+        return null;
       default:
         console.error(`Unexpected card ${card.type} for getTargetInstructions`);
     }
@@ -111,9 +127,30 @@ function CardOptionsPopover({
       return discardCardButton();
     }
 
+    if (card.type === CARD_CARDINAL) {
+      return (
+        <>
+          <p>Select two players to switch cards.</p>
+          {renderMultiPlayerButtons(targetCandidates)}
+          {
+            cardMultiTargetIds.length === 2 &&
+              <div>
+                <p>Select the player's card to look at after they have switched.</p>
+                {renderPlayerButtons(cardMultiTargetIds.map(id => allPlayers[id]))}
+              </div>
+          }
+          {
+            cardTargetId && cardMultiTargetIds.length === 2 &&
+              <p><Button onClick={onOkClick}>OK</Button></p>
+          }
+        </>
+      );
+    }
+
     return (
       <>
         {renderPlayerButtons(targetCandidates)}
+        {renderMultiPlayerButtons(targetCandidates)}
         {showCardNumberButtons && renderCardNumberButtons(onCardNumberGuessChange)}
         {
           cardTargetId && cardNumberGuess &&
@@ -139,16 +176,35 @@ function CardOptionsPopover({
 
   const renderPlayerButtons = targetCandidates => {
     return (
-      <ToggleButtonGroup name='playerToggle' onChange={onTargetedPlayerChange}>
-        {
-          targetCandidates.map(
-            player =>
-              <ToggleButton name='playerToggle' value={player.id}>
-                {player.name}
-              </ToggleButton>
-          )
-        }
-      </ToggleButtonGroup>
+      <div className='my-3'>
+        <ToggleButtonGroup name='playerToggle' value={cardTargetId} onChange={onTargetedPlayerChange}>
+          {
+            targetCandidates.map(
+              player =>
+                <ToggleButton key={player.id} name='playerToggle' value={player.id}>
+                  {player.name}
+                </ToggleButton>
+            )
+          }
+        </ToggleButtonGroup>
+      </div>
+    );
+  };
+
+  const renderMultiPlayerButtons = targetCandidates => {
+    return (
+      <div className='my-3'>
+        <ToggleButtonGroup name='multiPlayerToggle' value={cardMultiTargetIds} onChange={onMultiTargetedPlayerChange} type='checkbox'>
+          {
+            targetCandidates.map(
+              player =>
+                <ToggleButton key={player.id} name='multiPlayerToggle' value={player.id}>
+                  {player.name}
+                </ToggleButton>
+            )
+          }
+        </ToggleButtonGroup>
+      </div>
     );
   };
 
@@ -156,17 +212,21 @@ function CardOptionsPopover({
     const possibleNumbers = [2, 3, 4, 5, 6, 7, 8];
 
     return (
-      <ToggleButtonGroup name="radio" onChange={onCardNumberGuessChange}>
-        {
-          possibleNumbers.map(number =>
-            <ToggleButton key={number} type="radio" name="radio" value={number}>
-              {number}
-            </ToggleButton>
-          )
-        }
-      </ToggleButtonGroup>
+      <div className='my-3'>
+        <ToggleButtonGroup name="radio" onChange={onCardNumberGuessChange}>
+          {
+            possibleNumbers.map(number =>
+              <ToggleButton key={number} type="radio" name="radio" value={number}>
+                {number}
+              </ToggleButton>
+            )
+          }
+        </ToggleButtonGroup>
+      </div>
     );
   };
+
+  const instructions = getTargetInstructions();
 
   return (
     <Overlay
@@ -179,7 +239,9 @@ function CardOptionsPopover({
       <Popover>
         <Popover.Title as="h3">{label}</Popover.Title>
         <Popover.Content>
-          <p>{getTargetInstructions()}</p>
+          {
+            instructions && <p>{instructions}</p>
+          }
           {getTargetButtons()}
         </Popover.Content>
       </Popover>
