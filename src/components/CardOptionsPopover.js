@@ -52,16 +52,9 @@ function CardOptionsPopover({
   const onCardNumberGuessChange = value => setCardNumberGuess(value);
 
   const onOkClick = () => {
-    if (card.type === CARD_CARDINAL) {
-      onPlayCard({
-        multiTargetPlayerIds: cardMultiTargetIds,
-        revealPlayerId: cardTargetId,
-      });
-      return;
-    }
-
     onPlayCard({
       targetPlayerId: cardTargetId,
+      multiTargetPlayerIds: cardMultiTargetIds,
       cardNumberGuess,
     });
   };
@@ -90,7 +83,7 @@ function CardOptionsPopover({
         return 'Choose the player you think is most likely to win the round. If, at the end of ' +
          'the game, you\'ve chosen correctly, you receive a token.';
       case CARD_BARONESS:
-        return 'Choose one or two players and look at their hand.';
+        return 'Choose one or two players and look at their hand(s).';
       case CARD_SYCOPHANT:
         return 'Choose a player. The card played next turn must target that player, if it has an ' +
           'effect.';
@@ -126,38 +119,60 @@ function CardOptionsPopover({
       // Everyone else has a handmaid
       return discardCardButton();
     }
-
-    if (card.type === CARD_CARDINAL) {
-      return (
-        <>
-          <p>Select two players to switch cards.</p>
-          {renderMultiPlayerButtons(targetCandidates)}
-          {
-            cardMultiTargetIds.length === 2 &&
-              <div>
-                <p>Select the player's card to look at after they have switched.</p>
-                {renderPlayerButtons(cardMultiTargetIds.map(id => allPlayers[id]))}
-              </div>
-          }
-          {
-            cardTargetId && cardMultiTargetIds.length === 2 &&
-              <p><Button onClick={onOkClick}>OK</Button></p>
-          }
-        </>
-      );
+    if (card.type === CARD_CARDINAL && targetCandidates < 2) {
+      return discardCardButton();
     }
 
-    return (
-      <>
-        {renderPlayerButtons(targetCandidates)}
-        {renderMultiPlayerButtons(targetCandidates)}
-        {showCardNumberButtons && renderCardNumberButtons(onCardNumberGuessChange)}
-        {
-          cardTargetId && cardNumberGuess &&
-            <Button onClick={onOkClick}>OK</Button>
-        }
-      </>
-    );
+    switch (card.type) {
+      case CARD_CARDINAL:
+        const shouldPickPlayerToReveal = (
+          cardMultiTargetIds.length === 2 && !cardMultiTargetIds.includes(currPlayerId)
+        );
+
+        return (
+          <>
+            <p>Select two players to switch cards.</p>
+            {renderMultiPlayerButtons(targetCandidates)}
+            {
+              shouldPickPlayerToReveal && 
+                <div>
+                  <p>Select the player's card to look at after they have switched.</p>
+                  {
+                    renderPlayerButtons(
+                      cardMultiTargetIds.filter(id => id !== currPlayerId).map(id => allPlayers[id])
+                    )
+                  }
+                </div>
+            }
+            {
+              (!shouldPickPlayerToReveal || cardTargetId) && cardMultiTargetIds.length === 2 &&
+                <p><Button onClick={onOkClick}>OK</Button></p>
+            }
+          </>
+        );
+      case CARD_BARONESS:
+        return (
+          <>
+            {renderMultiPlayerButtons(targetCandidates)}
+            {
+              cardMultiTargetIds.length >= 1 &&
+                <p><Button onClick={onOkClick}>OK</Button></p>
+            }
+          </>
+        );
+      default:
+        return (
+          <>
+            {renderPlayerButtons(targetCandidates)}
+            {renderMultiPlayerButtons(targetCandidates)}
+            {showCardNumberButtons && renderCardNumberButtons(onCardNumberGuessChange)}
+            {
+              cardTargetId && cardNumberGuess &&
+                <Button onClick={onOkClick}>OK</Button>
+            }
+          </>
+        );
+    }
   };
 
   const onDiscard = () => { onPlayCard({ discard: true }) };
@@ -194,7 +209,12 @@ function CardOptionsPopover({
   const renderMultiPlayerButtons = targetCandidates => {
     return (
       <div className='my-3'>
-        <ToggleButtonGroup name='multiPlayerToggle' value={cardMultiTargetIds} onChange={onMultiTargetedPlayerChange} type='checkbox'>
+        <ToggleButtonGroup
+          name='multiPlayerToggle'
+          value={cardMultiTargetIds}
+          onChange={onMultiTargetedPlayerChange}
+          type='checkbox'
+        >
           {
             targetCandidates.map(
               player =>

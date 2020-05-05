@@ -14,8 +14,8 @@ import {
   //CARD_COUNTESS,
   //CARD_PRINCESS,
   //CARD_JESTER,
-  //CARD_CARDINAL,
-  //CARD_BARONESS,
+  CARD_CARDINAL,
+  CARD_BARONESS,
   //CARD_SYCOPHANT,
   //CARD_DOWAGER_QUEEN,
   //CARD_BISHOP,
@@ -42,6 +42,23 @@ const testState = {
   currUserId: 'gordon',
   gameState: STATE_STARTED,
   name: 'Gordon',
+  singleCardReveal: {
+    label: 'Gordon is now holding',
+    card: {
+      id: 1000,
+      type: CARD_GUARD,
+    },
+  },
+  //switchCardData: [
+    //{
+      //name: 'The King of Pain',
+      //card: { id: 2, type: CARD_GUARD },
+    //},
+    //{
+      //name: 'Professor Plum',
+      //card: { id: 3, type: CARD_BARON },
+    //},
+  //],
   //lastCardPlayed: {
     //playerId: 'gordon',
     //card: { id: 2, type: 5 },
@@ -55,7 +72,7 @@ const testState = {
         { id: 101, type: CARD_BARON },
       ],
       isLeader: true,
-      hand: [{ id: 100, type: CARD_GUARD }],
+      hand: [{ id: 100, type: CARD_BARONESS }],
     },
     steve: {
       id: 'steve',
@@ -65,8 +82,16 @@ const testState = {
       ],
       discardPile: [{ id: 103, type: CARD_GUARD }],
     },
+    yuriko: {
+      id: 'yuriko',
+      name: 'Yuriko',
+      hand: [
+        { id: 0, type: CARD_PRINCE },
+      ],
+      discardPile: [{ id: 103, type: CARD_GUARD }],
+    },
   },
-  playerOrder: ['gordon', 'steve'],
+  playerOrder: ['gordon', 'steve', 'yuriko'],
 };
 
 const stateToUse = useTestState ? testState : initialState;
@@ -99,7 +124,7 @@ export default function reducer(state = stateToUse, action) {
         ...state,
         baronRevealData: undefined,
         showLastCardPlayed: false,
-        priestRevealCard: undefined,
+        singleCardReveal: undefined,
       };
 
     case actions.END_GAME:
@@ -189,10 +214,10 @@ export default function reducer(state = stateToUse, action) {
         messages: newMessages,
       };
 
-    case actions.PRIEST_REVEAL:
+    case actions.SINGLE_CARD_REVEAL:
       return {
         ...state,
-        priestRevealCard: action.payload.card,
+        singleCardReveal: action.payload,
       };
 
     case actions.RECEIVE_DEBUG_INFO:
@@ -242,6 +267,12 @@ export default function reducer(state = stateToUse, action) {
       return {
         ...state,
         alertMessage: action.payload,
+      };
+
+    case actions.SWITCH_CARD_DATA:
+      return {
+        ...state,
+        switchCardData: action.payload,
       };
 
     default:

@@ -10,12 +10,13 @@ export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const NEW_LEADER = 'NEW_LEADER';
 export const NEW_USER = 'NEW_USER';
 export const USER_DISCONNECT = 'USER_DISCONNECT';
-export const PRIEST_REVEAL = 'PRIEST_REVEAL';
 export const RECEIVE_DEBUG_INFO = 'RECEIVE_DEBUG_INFO';
 export const RECEIVE_GAME_DATA = 'RECEIVE_GAME_DATA';
 export const RECEIVE_INIT_DATA = 'RECEIVE_INIT_DATA';
 export const SAVE_NAME = 'SAVE_NAME';
 export const SHOW_ALERT = 'SHOW_ALERT';
+export const SINGLE_CARD_REVEAL = 'SINGLE_CARD_REVEAL';
+export const SWITCH_CARD_DATA = 'SWITCH_CARD_DATA';
 
 // Actions
 export function baronReveal(baronData) {
@@ -120,10 +121,10 @@ export function lastCardPlayed(data) {
   }
 }
 
-export function priestReveal(card) {
+export function singleCardReveal(data) {
   return {
-    payload: { card },
-    type: PRIEST_REVEAL,
+    payload: data,
+    type: SINGLE_CARD_REVEAL,
   }
 }
 
@@ -131,5 +132,12 @@ export function showAlert(msg) {
   return {
     payload: msg,
     type: SHOW_ALERT,
+  }
+}
+
+export function switchCardData(data) {
+  return {
+    payload: data,
+    type: SWITCH_CARD_DATA,
   }
 }

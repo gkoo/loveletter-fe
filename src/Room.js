@@ -54,7 +54,8 @@ function Room() {
     socket.on('newLeader', userId => dispatch(actions.newLeader(userId)));
     socket.on('message', message => dispatch(actions.newMessage(message)));
     socket.on('lastCardPlayed', playCardData => dispatch(actions.lastCardPlayed(playCardData)));
-    socket.on('priestReveal', card => dispatch(actions.priestReveal(card)));
+    socket.on('singleCardReveal', data => dispatch(actions.singleCardReveal(data)));
+    socket.on('switchCardData', card => dispatch(actions.switchCardData(card)));
     socket.on('userDisconnect', userId => dispatch(actions.userDisconnect(userId)));
   }, [socket, dispatch]);
 

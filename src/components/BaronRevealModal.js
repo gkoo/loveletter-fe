@@ -14,7 +14,7 @@ function BaronRevealModal({ baronRevealData, players }) {
       <Modal.Body className='reveal-modal-body'>
         {
           baronRevealData.map(revealData =>
-            <div className='baron-reveal-card'>
+            <div className='reveal-card'>
               <h4>{revealData.name}</h4>
               <Card
                 key={revealData.card.id}

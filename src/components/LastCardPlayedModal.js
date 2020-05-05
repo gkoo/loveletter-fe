@@ -3,7 +3,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 
 import Card from './Card';
-import { CARD_PRIEST, CARD_BARON } from '../constants';
+import { CARD_CARDINAL, CARD_PRIEST, CARD_BARON } from '../constants';
 
 function LastCardPlayedModal({ currUserId, lastCardPlayed, players, showLastCardPlayed }) {
   if (!lastCardPlayed) {
@@ -20,6 +20,28 @@ function LastCardPlayedModal({ currUserId, lastCardPlayed, players, showLastCard
     targetPlayerName = players[targetPlayerId].name;
   }
 
+  let multiTargetPlayerNames = null;
+  let multiTargetPlayerIds = effectData && effectData.multiTargetPlayerIds;
+
+  if (multiTargetPlayerIds) {
+    multiTargetPlayerNames = multiTargetPlayerIds.map(id => players[id].name);
+  }
+
+  const shouldShow = () => {
+    if (!showLastCardPlayed) { return false; }
+
+    if (card.type === CARD_CARDINAL) {
+      return !multiTargetPlayerIds.includes(currUserId) && currUserId !== playerId;
+    }
+    if (card.type === CARD_BARON) {
+      return ![playerId, targetPlayerId].includes(currUserId);
+    }
+    if (card.type === CARD_PRIEST) {
+      return currUserId !== playerId;
+    }
+    return true;
+  };
+
   const title = [playerName];
   if (targetPlayerName) {
     title.push(`⇢ ${targetPlayerName}`);
@@ -27,14 +49,30 @@ function LastCardPlayedModal({ currUserId, lastCardPlayed, players, showLastCard
     title.push('discarded');
   }
 
-  const shouldHide = !showLastCardPlayed || (
-    card.type === CARD_BARON && [playerId, targetPlayerId].includes(currUserId)
-  ) || (
-    card.type === CARD_PRIEST && currUserId === playerId
-  );
+  if (card.type === CARD_CARDINAL) {
+    return (
+      <Modal show={shouldShow()}>
+        <Modal.Body className='reveal-modal-body'>
+          <div className='baron-reveal-card'>
+            <h4>{title.join(' ')}</h4>
+            {
+              card &&
+                <Card
+                  key={card.id}
+                  card={card}
+                  clickable={false}
+                  isDiscard={false}
+                  isRevealCard={true}
+                />
+            }
+          </div>
+        </Modal.Body>
+      </Modal>
+    );
+  };
 
   return (
-    <Modal show={!shouldHide}>
+    <Modal show={shouldShow()}>
       <Modal.Body className='reveal-modal-body'>
         <div className='baron-reveal-card'>
           <h4>{title.join(' ')}</h4>
