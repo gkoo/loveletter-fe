@@ -4,27 +4,24 @@ import Modal from 'react-bootstrap/Modal';
 
 import Card from './Card';
 
-function BaronRevealModal({ baronRevealData, players }) {
-  baronRevealData.forEach(data => {
-    data.name = players[data.playerId].name;
-  });
-
+function BaronRevealModal({ baronRevealData, players, showCardModal }) {
   return (
-    <Modal show={!!baronRevealData}>
+    <Modal show={!!showCardModal && !!baronRevealData}>
       <Modal.Body className='reveal-modal-body'>
         {
-          baronRevealData.map(revealData =>
-            <div className='reveal-card'>
-              <h4>{revealData.name}</h4>
-              <Card
-                key={revealData.card.id}
-                card={revealData.card}
-                clickable={false}
-                isDiscard={false}
-                isRevealCard={true}
-              />
-            </div>
-          )
+          baronRevealData &&
+            baronRevealData.map(revealData =>
+              <div className='reveal-card'>
+                <h4>{players[revealData.playerId].name}</h4>
+                <Card
+                  key={revealData.card.id}
+                  card={revealData.card}
+                  clickable={false}
+                  isDiscard={false}
+                  isRevealCard={true}
+                />
+              </div>
+            )
         }
       </Modal.Body>
     </Modal>

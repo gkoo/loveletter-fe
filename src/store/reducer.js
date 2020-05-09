@@ -34,6 +34,7 @@ const initialState = {
   players: {},
   users: {},
   messages: [],
+  showCardModal: false,
   socket: io(socketIoServerUrl),
 };
 const testState = {
@@ -105,6 +106,7 @@ export default function reducer(state = stateToUse, action) {
       return {
         ...state,
         baronRevealData,
+        showCardModal: true,
       };
 
     case actions.CLOSE_END_GAME_MODAL:
@@ -124,6 +126,7 @@ export default function reducer(state = stateToUse, action) {
         ...state,
         baronRevealData: undefined,
         showLastCardPlayed: false,
+        showCardModal: false,
         singleCardReveal: undefined,
       };
 
@@ -152,7 +155,7 @@ export default function reducer(state = stateToUse, action) {
       return {
         ...state,
         lastCardPlayed: action.payload,
-        showLastCardPlayed: true,
+        showCardModal: true,
       };
 
     case actions.NEW_LEADER:
@@ -217,6 +220,7 @@ export default function reducer(state = stateToUse, action) {
     case actions.SINGLE_CARD_REVEAL:
       return {
         ...state,
+        showCardModal: true,
         singleCardReveal: action.payload,
       };
 
@@ -272,6 +276,7 @@ export default function reducer(state = stateToUse, action) {
     case actions.SWITCH_CARD_DATA:
       return {
         ...state,
+        showCardModal: true,
         switchCardData: action.payload,
       };
 

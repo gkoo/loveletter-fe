@@ -16,7 +16,7 @@ import {
   lastCardPlayedSelector,
   playersSelector,
   playerOrderSelector,
-  showLastCardPlayedSelector,
+  showCardModalSelector,
   singleCardRevealSelector,
   switchCardDataSelector,
   winnerIdsSelector,
@@ -33,7 +33,7 @@ function Board() {
   const players = useSelector(playersSelector);
   const playerOrder = useSelector(playerOrderSelector);
   const singleCardReveal = useSelector(singleCardRevealSelector);
-  const showLastCardPlayed = useSelector(showLastCardPlayedSelector);
+  const showCardModal = useSelector(showCardModalSelector);
   const switchCardData = useSelector(switchCardDataSelector);
   const winnerIds = useSelector(winnerIdsSelector);
 
@@ -75,23 +75,28 @@ function Board() {
         })
       }
       {
-        !!baronRevealData &&
-          <BaronRevealModal baronRevealData={baronRevealData} players={players} />
+        <BaronRevealModal
+          baronRevealData={baronRevealData}
+          players={players}
+          showCardModal={showCardModal}
+        />
       }
       {
         singleCardReveal &&
-          <SingleCardRevealModal singleCardReveal={singleCardReveal} />
+          <SingleCardRevealModal
+            showCardModal={showCardModal}
+            singleCardReveal={singleCardReveal}
+          />
       }
       {
-        switchCardData &&
-          <SwitchCardModal switchCardData={switchCardData} />
+        <SwitchCardModal showCardModal={showCardModal} switchCardData={switchCardData} />
       }
       {
         <LastCardPlayedModal
           currUserId={currUserId}
           lastCardPlayed={lastCardPlayed}
-          showLastCardPlayed={showLastCardPlayed}
           players={players}
+          showCardModal={showCardModal}
         />
       }
       {

@@ -5,7 +5,14 @@ import Modal from 'react-bootstrap/Modal';
 import Card from './Card';
 import { CARD_CARDINAL, CARD_PRIEST, CARD_BARON } from '../constants';
 
-function LastCardPlayedModal({ currUserId, lastCardPlayed, players, showLastCardPlayed }) {
+function LastCardPlayedModal({
+  baronRevealData,
+  currUserId,
+  lastCardPlayed,
+  players,
+  showCardModal,
+  singleCardReveal,
+}) {
   if (!lastCardPlayed) {
     return <div />;
   }
@@ -28,7 +35,7 @@ function LastCardPlayedModal({ currUserId, lastCardPlayed, players, showLastCard
   }
 
   const shouldShow = () => {
-    if (!showLastCardPlayed) { return false; }
+    if (!showCardModal) { return false; }
 
     if (card.type === CARD_CARDINAL) {
       return !multiTargetPlayerIds.includes(currUserId) && currUserId !== playerId;
