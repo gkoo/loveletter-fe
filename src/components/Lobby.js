@@ -1,5 +1,7 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -8,9 +10,13 @@ import Row from 'react-bootstrap/Row';
 import LeaderPanel from './LeaderPanel';
 import MessageLog from './MessageLog';
 import PlayerList from './PlayerList';
+import { toggleRulesModal } from '../store/actions';
 
 function Lobby({ messages, roomCode, users, socket }) {
   const onNewChatMessage = msg => socket.emit('chatMessage', msg);
+  const dispatch = useDispatch();
+
+  const onShowRulesModal = () => dispatch(toggleRulesModal({ show: true }));
 
   return (
     <>
@@ -21,7 +27,12 @@ function Lobby({ messages, roomCode, users, socket }) {
             <h1 className='room-code'>{roomCode}</h1>
           </Col>
         </Row>
-        <Row style={{ 'margin-bottom': '20px' }}>
+        <Row>
+          <Col className='text-center'>
+            <Button variant='link' onClick={onShowRulesModal}>How to play</Button>
+          </Col>
+        </Row>
+        <Row className='mb-5'>
           <Col className='center'>
             <LeaderPanel numUsers={Object.keys(users).length}/>
           </Col>

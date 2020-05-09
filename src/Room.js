@@ -6,6 +6,7 @@ import AlertMessageModal from './components/AlertMessageModal';
 import Game from './components/Game';
 import Lobby from './components/Lobby';
 import NameModal from './components/NameModal';
+import RulesModal from './components/RulesModal';
 import { STATE_PENDING } from './constants';
 import * as actions from './store/actions';
 import * as selectors from './store/selectors';
@@ -21,12 +22,14 @@ function Room() {
   const roomCode = useSelector(selectors.roomCodeSelector);
   const name = useSelector(selectors.nameSelector);
   const players = useSelector(selectors.playersSelector);
+  const showRulesModal = useSelector(selectors.showRulesModalSelector);
   const socket = useSelector(selectors.socketSelector);
   const users = useSelector(selectors.usersSelector);
 
   const roomCodeParam = useParams().roomCode;
 
   const onDismissAlertMessage = () => dispatch(actions.dismissAlertMessage());
+  const onHideRulesModal = () => dispatch(actions.toggleRulesModal({ show: false }));
 
   const ROOM_CODE_PREFIX = 'room-';
 
@@ -81,6 +84,7 @@ function Room() {
       }
       <NameModal show={!name} />
       <AlertMessageModal alertMessage={alertMessage} onClose={onDismissAlertMessage}/>
+      <RulesModal show={showRulesModal} onClose={onHideRulesModal} />
     </>
   );
 }

@@ -17,6 +17,7 @@ export const RECEIVE_INIT_DATA = 'RECEIVE_INIT_DATA';
 export const SAVE_NAME = 'SAVE_NAME';
 export const SHOW_ALERT = 'SHOW_ALERT';
 export const SWITCH_CARD_DATA = 'SWITCH_CARD_DATA';
+export const TOGGLE_RULES_MODAL = 'TOGGLE_RULES_MODAL';
 
 // Actions
 export function baronReveal(baronData) {
@@ -139,5 +140,12 @@ export function switchCardData(data) {
   return {
     payload: data,
     type: SWITCH_CARD_DATA,
+  }
+}
+
+export function toggleRulesModal({ show }) {
+  return {
+    payload: { show },
+    type: TOGGLE_RULES_MODAL,
   }
 }

@@ -24,6 +24,15 @@ import {
 import PlayerView from './PlayerView';
 import { STATE_PENDING } from '../constants';
 
+const getPlayersInOrder = (playerOrder, players, currUserId) => {
+  const activePlayerTurnIdx = playerOrder.indexOf(currUserId);
+  // Show current player at the top, then rest of the players in order of turn order
+  const playerIdsInOrder = playerOrder.slice(activePlayerTurnIdx).concat(
+    playerOrder.slice(0, activePlayerTurnIdx)
+  );
+  return playerIdsInOrder.map(playerId => players[playerId]);
+};
+
 function Board() {
   const activePlayerId = useSelector(activePlayerIdSelector);
   const baronRevealData = useSelector(baronRevealDataSelector);
@@ -53,12 +62,7 @@ function Board() {
 
   const onCloseEndGameModal = () => dispatch(closeEndGameModal());
 
-  const activePlayerTurnIdx = playerOrder.indexOf(currUserId);
-  // Show current player at the top, then rest of the players in order of turn order
-  const playerIdsInOrder = playerOrder.slice(activePlayerTurnIdx).concat(
-    playerOrder.slice(0, activePlayerTurnIdx)
-  );
-  const playersInOrder = playerIdsInOrder.map(playerId => players[playerId]);
+  const playersInOrder = getPlayersInOrder(playerOrder, players, currUserId);
 
   return (
     <>

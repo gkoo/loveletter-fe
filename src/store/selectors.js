@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 
 export const alertMessageSelector = state => state.alertMessage;
 export const debugEnabledSelector = state => state.debugEnabled;
+export const cardRevealSelector = state => state.cardReveal;
 export const gameStateSelector = state => state.gameState;
 export const playersSelector = state => state.players;
 export const playerOrderSelector = state => state.playerOrder;
@@ -31,6 +32,6 @@ export const baronRevealDataSelector = state => state.baronRevealData;
 export const lastCardPlayedSelector = state => state.lastCardPlayed;
 export const roomCodeSelector = state => state.roomCode;
 export const showCardModalSelector = state => state.showCardModal;
-export const cardRevealSelector = state => state.cardReveal;
+export const showRulesModalSelector = state => state.showRulesModal;
 export const switchCardDataSelector = state => state.switchCardData;
 export const winnerIdsSelector = state => state.winnerIds;

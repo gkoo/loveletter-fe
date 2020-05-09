@@ -41,6 +41,7 @@ const testState = {
   ...initialState,
   activePlayerId: 'gordon',
   currUserId: 'gordon',
+  showRulesModal: true,
   gameState: STATE_STARTED,
   name: 'Gordon',
   cardReveal: [
@@ -59,7 +60,7 @@ const testState = {
       },
     },
   ],
-  showCardModal: true,
+  showCardModal: false,
   //switchCardData: [
     //{
       //name: 'The King of Pain',
@@ -285,6 +286,12 @@ export default function reducer(state = stateToUse, action) {
         ...state,
         showCardModal: true,
         switchCardData: action.payload,
+      };
+
+    case actions.TOGGLE_RULES_MODAL:
+      return {
+        ...state,
+        showRulesModal: action.payload.show,
       };
 
     default:

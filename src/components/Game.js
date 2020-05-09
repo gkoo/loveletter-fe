@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -10,8 +11,13 @@ import Guide from './Guide';
 import LeaderPanel from './LeaderPanel';
 import MessageLog from './MessageLog';
 
+import { toggleRulesModal } from '../store/actions';
+
 function Game({ socket, messages, users }) {
   const onNewChatMessage = msg => socket.emit('chatMessage', msg);
+  const dispatch = useDispatch();
+
+  const onShowRulesModal = () => dispatch(toggleRulesModal({ show: true }));
 
   return (
     <Container>
@@ -28,7 +34,7 @@ function Game({ socket, messages, users }) {
             messages={messages}
             onNewMessage={onNewChatMessage}
           />
-          <Guide />
+          <Guide onShowRules={onShowRulesModal} />
         </Col>
       </Row>
       <div className='end-turn-button'>

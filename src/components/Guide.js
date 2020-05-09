@@ -1,9 +1,12 @@
 import React from 'react';
 
-function Guide() {
+import Button from 'react-bootstrap/Button';
+
+function Guide({ onShowRules }) {
   return (
     <>
-      <p><strong>Guide</strong></p>
+      <Button variant='link' onClick={onShowRules}>How to play</Button>
+      <p><strong>Card Effects</strong></p>
       <ul>
         <li>(8) Princess: If discarded, you are knocked out of the round.</li>
         <li>(7) Countess: Discard if caught with King or Prince.</li>
