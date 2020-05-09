@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import BaronRevealModal from './BaronRevealModal';
 import LastCardPlayedModal from './LastCardPlayedModal';
-import SingleCardRevealModal from './SingleCardRevealModal';
+import CardRevealModal from './CardRevealModal';
 import SwitchCardModal from './SwitchCardModal';
 import WinnerModal from './WinnerModal';
 import { closeEndGameModal } from '../store/actions';
@@ -17,7 +17,7 @@ import {
   playersSelector,
   playerOrderSelector,
   showCardModalSelector,
-  singleCardRevealSelector,
+  cardRevealSelector,
   switchCardDataSelector,
   winnerIdsSelector,
 } from '../store/selectors';
@@ -32,7 +32,7 @@ function Board() {
   const lastCardPlayed = useSelector(lastCardPlayedSelector);
   const players = useSelector(playersSelector);
   const playerOrder = useSelector(playerOrderSelector);
-  const singleCardReveal = useSelector(singleCardRevealSelector);
+  const cardReveal = useSelector(cardRevealSelector);
   const showCardModal = useSelector(showCardModalSelector);
   const switchCardData = useSelector(switchCardDataSelector);
   const winnerIds = useSelector(winnerIdsSelector);
@@ -82,10 +82,10 @@ function Board() {
         />
       }
       {
-        singleCardReveal &&
-          <SingleCardRevealModal
+        cardReveal &&
+          <CardRevealModal
             showCardModal={showCardModal}
-            singleCardReveal={singleCardReveal}
+            cardReveal={cardReveal}
           />
       }
       {

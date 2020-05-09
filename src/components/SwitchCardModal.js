@@ -27,7 +27,7 @@ function SwitchCardModal({ showCardModal, switchCardData }) {
           switchCardData && 
           <>
             {renderCard(switchCardData[0])}
-            <div className='reveal-card px-3'>
+            <div className='reveal-card'>
               <div style={{ paddingTop: '50px' }}>
               ← Switch →
               </div>

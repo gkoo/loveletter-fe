@@ -12,7 +12,7 @@ import {
   CARD_PRINCE,
   //CARD_KING,
   //CARD_COUNTESS,
-  //CARD_PRINCESS,
+  CARD_PRINCESS,
   //CARD_JESTER,
   CARD_CARDINAL,
   CARD_BARONESS,
@@ -25,7 +25,7 @@ import {
 } from '../constants';
 
 // Change to true to develop UI
-const useTestState = false;
+const useTestState = 0;
 
 const initialState = {
   alertMessage: undefined,
@@ -43,13 +43,23 @@ const testState = {
   currUserId: 'gordon',
   gameState: STATE_STARTED,
   name: 'Gordon',
-  singleCardReveal: {
-    label: 'Gordon is now holding',
-    card: {
-      id: 1000,
-      type: CARD_GUARD,
+  cardReveal: [
+    {
+      label: 'Gordon',
+      card: {
+        id: 1000,
+        type: CARD_GUARD,
+      },
     },
-  },
+    {
+      label: 'Steve',
+      card: {
+        id: 1000,
+        type: CARD_PRINCESS,
+      },
+    },
+  ],
+  showCardModal: true,
   //switchCardData: [
     //{
       //name: 'The King of Pain',
@@ -124,10 +134,7 @@ export default function reducer(state = stateToUse, action) {
     case actions.DISMISS_REVEAL:
       return {
         ...state,
-        baronRevealData: undefined,
-        showLastCardPlayed: false,
         showCardModal: false,
-        singleCardReveal: undefined,
       };
 
     case actions.END_GAME:
@@ -217,11 +224,11 @@ export default function reducer(state = stateToUse, action) {
         messages: newMessages,
       };
 
-    case actions.SINGLE_CARD_REVEAL:
+    case actions.CARD_REVEAL:
       return {
         ...state,
+        cardReveal: action.payload,
         showCardModal: true,
-        singleCardReveal: action.payload,
       };
 
     case actions.RECEIVE_DEBUG_INFO:

@@ -1,5 +1,6 @@
 // Action Types
 export const BARON_REVEAL = 'BARON_REVEAL';
+export const CARD_REVEAL = 'CARD_REVEAL';
 export const CLOSE_END_GAME_MODAL = 'CLOSE_END_GAME_MODAL';
 export const DISMISS_ALERT_MESSAGE = 'DISMISS_ALERT_MESSAGE';
 export const DISMISS_REVEAL = 'DISMISS_REVEAL';
@@ -15,7 +16,6 @@ export const RECEIVE_GAME_DATA = 'RECEIVE_GAME_DATA';
 export const RECEIVE_INIT_DATA = 'RECEIVE_INIT_DATA';
 export const SAVE_NAME = 'SAVE_NAME';
 export const SHOW_ALERT = 'SHOW_ALERT';
-export const SINGLE_CARD_REVEAL = 'SINGLE_CARD_REVEAL';
 export const SWITCH_CARD_DATA = 'SWITCH_CARD_DATA';
 
 // Actions
@@ -121,10 +121,10 @@ export function lastCardPlayed(data) {
   }
 }
 
-export function singleCardReveal(data) {
+export function cardReveal(data) {
   return {
     payload: data,
-    type: SINGLE_CARD_REVEAL,
+    type: CARD_REVEAL,
   }
 }
 

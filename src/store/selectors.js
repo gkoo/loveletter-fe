@@ -31,6 +31,6 @@ export const baronRevealDataSelector = state => state.baronRevealData;
 export const lastCardPlayedSelector = state => state.lastCardPlayed;
 export const roomCodeSelector = state => state.roomCode;
 export const showCardModalSelector = state => state.showCardModal;
-export const singleCardRevealSelector = state => state.singleCardReveal;
+export const cardRevealSelector = state => state.cardReveal;
 export const switchCardDataSelector = state => state.switchCardData;
 export const winnerIdsSelector = state => state.winnerIds;

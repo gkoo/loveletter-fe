@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -30,6 +31,9 @@ function Game({ socket, messages, users }) {
           <Guide />
         </Col>
       </Row>
+      <div className='end-turn-button'>
+        <Button onClick={() => socket.emit('nextTurnDebug')}>End Turn</Button>
+      </div>
     </Container>
   );
 }
