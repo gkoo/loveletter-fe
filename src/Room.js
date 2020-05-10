@@ -48,16 +48,17 @@ function Room() {
     if (!socket) { return; }
 
     socket.on('baronReveal', baronData => dispatch(actions.baronReveal(baronData)));
+    socket.on('cardReveal', data => dispatch(actions.cardReveal(data)));
     socket.on('debugInfo', data => dispatch(actions.receiveDebugInfo(data)));
     socket.on('dismissReveal', () => dispatch(actions.dismissReveal()));
     socket.on('endGame', winnerIds => dispatch(actions.endGame(winnerIds)));
     socket.on('initData', data => dispatch(actions.receiveInitData(data)));
     socket.on('gameData', gameData => dispatch(actions.receiveGameData(gameData)));
+    socket.on('lastCardPlayed', playCardData => dispatch(actions.lastCardPlayed(playCardData)));
+    socket.on('message', message => dispatch(actions.newMessage(message)));
     socket.on('newUser', user => dispatch(actions.newUser(user)));
     socket.on('newLeader', userId => dispatch(actions.newLeader(userId)));
-    socket.on('message', message => dispatch(actions.newMessage(message)));
-    socket.on('lastCardPlayed', playCardData => dispatch(actions.lastCardPlayed(playCardData)));
-    socket.on('cardReveal', data => dispatch(actions.cardReveal(data)));
+    socket.on('promptDrawNewCard', userId => dispatch(actions.toggleDrawNewCard({ show: true })));
     socket.on('switchCardData', card => dispatch(actions.switchCardData(card)));
     socket.on('userDisconnect', userId => dispatch(actions.userDisconnect(userId)));
   }, [socket, dispatch]);

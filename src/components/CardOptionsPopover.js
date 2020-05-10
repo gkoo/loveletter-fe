@@ -5,6 +5,7 @@ import Overlay from 'react-bootstrap/Overlay';
 import Popover from 'react-bootstrap/Popover';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
+import cx from 'classnames';
 
 import {
   CARD_GUARD,
@@ -69,8 +70,12 @@ const discardCardButton = (onDiscardCallback) => {
   );
 };
 
-const renderCardNumberButtons = (onChangeCallback) => {
-  const possibleNumbers = [2, 3, 4, 5, 6, 7, 8];
+const renderCardNumberButtons = (onChangeCallback, restrictGuardGuess) => {
+  const possibleNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  if (restrictGuardGuess) {
+    possibleNumbers.splice(1, 1);
+  }
 
   return (
     <div className='my-3'>
@@ -235,7 +240,10 @@ function CardOptionsPopover({
         return (
           <>
             {renderPlayerButtons(targetCandidates)}
-            {showCardNumberButtons && renderCardNumberButtons(onCardNumberGuessChange)}
+            {
+              showCardNumberButtons &&
+                renderCardNumberButtons(onCardNumberGuessChange, card.type === CARD_GUARD)
+            }
             {
               cardTargetId && cardNumberGuess &&
                 <Button onClick={onOkClick}>OK</Button>
@@ -247,6 +255,14 @@ function CardOptionsPopover({
 
   const instructions = getTargetInstructions(card);
 
+  const classNames = cx(
+    'card-options-popover',
+    {
+      bishop: card.type === CARD_BISHOP,
+      guard: card.type === CARD_GUARD,
+    },
+  );
+
   return (
     <Overlay
       onHide={onHide}
@@ -255,12 +271,10 @@ function CardOptionsPopover({
       show={show}
       target={target}
     >
-      <Popover>
+      <Popover className={classNames}>
         <Popover.Title as="h3">{label}</Popover.Title>
         <Popover.Content>
-          {
-            instructions && <p>{instructions}</p>
-          }
+          {instructions && <p>{instructions}</p>}
           {getTargetButtons()}
         </Popover.Content>
       </Popover>

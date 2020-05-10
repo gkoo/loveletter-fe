@@ -18,7 +18,7 @@ import {
   CARD_BARONESS,
   //CARD_SYCOPHANT,
   //CARD_DOWAGER_QUEEN,
-  //CARD_BISHOP,
+  CARD_BISHOP,
   STATE_PENDING,
   STATE_STARTED,
   STATE_GAME_END,
@@ -41,7 +41,7 @@ const testState = {
   ...initialState,
   activePlayerId: 'gordon',
   currUserId: 'gordon',
-  showRulesModal: true,
+  showRulesModal: false,
   gameState: STATE_STARTED,
   name: 'Gordon',
   cardReveal: [
@@ -84,7 +84,7 @@ const testState = {
         { id: 101, type: CARD_BARON },
       ],
       isLeader: true,
-      hand: [{ id: 100, type: CARD_BARONESS }],
+      hand: [{ id: 100, type: CARD_BISHOP }],
     },
     steve: {
       id: 'steve',
@@ -120,6 +120,13 @@ export default function reducer(state = stateToUse, action) {
         showCardModal: true,
       };
 
+    case actions.CARD_REVEAL:
+      return {
+        ...state,
+        cardReveal: action.payload,
+        showCardModal: true,
+      };
+
     case actions.CLOSE_END_GAME_MODAL:
       return {
         ...state,
@@ -139,6 +146,7 @@ export default function reducer(state = stateToUse, action) {
         cardReveal: null,
         showCardModal: false,
         switchCardData: null,
+        showDrawNewCardModal: false,
       };
 
     case actions.END_GAME:
@@ -228,13 +236,6 @@ export default function reducer(state = stateToUse, action) {
         messages: newMessages,
       };
 
-    case actions.CARD_REVEAL:
-      return {
-        ...state,
-        cardReveal: action.payload,
-        showCardModal: true,
-      };
-
     case actions.RECEIVE_DEBUG_INFO:
       console.log(action.payload);
       return state;
@@ -289,6 +290,12 @@ export default function reducer(state = stateToUse, action) {
         ...state,
         showCardModal: true,
         switchCardData: action.payload,
+      };
+
+    case actions.TOGGLE_DRAW_NEW_CARD:
+      return {
+        ...state,
+        showDrawNewCardModal: action.payload.show,
       };
 
     case actions.TOGGLE_RULES_MODAL:

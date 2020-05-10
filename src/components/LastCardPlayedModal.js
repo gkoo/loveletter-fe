@@ -27,12 +27,7 @@ function LastCardPlayedModal({
     targetPlayerName = players[targetPlayerId].name;
   }
 
-  let multiTargetPlayerNames = null;
   let multiTargetPlayerIds = effectData && effectData.multiTargetPlayerIds;
-
-  if (multiTargetPlayerIds) {
-    multiTargetPlayerNames = multiTargetPlayerIds.map(id => players[id].name);
-  }
 
   const shouldShow = () => {
     if (!showCardModal) { return false; }

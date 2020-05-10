@@ -32,6 +32,7 @@ export const baronRevealDataSelector = state => state.baronRevealData;
 export const lastCardPlayedSelector = state => state.lastCardPlayed;
 export const roomCodeSelector = state => state.roomCode;
 export const showCardModalSelector = state => state.showCardModal;
+export const showDrawNewCardModalSelector = state => state.showDrawNewCardModal;
 export const showRulesModalSelector = state => state.showRulesModal;
 export const switchCardDataSelector = state => state.switchCardData;
 export const winnerIdsSelector = state => state.winnerIds;

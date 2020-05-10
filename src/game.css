@@ -219,3 +219,9 @@
   max-height: 400px;
   overflow-y: auto;
 }
+
+.card-options-popover.guard,
+.card-options-popover.bishop
+{
+   max-width: 370px;
+}

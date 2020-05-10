@@ -2,25 +2,14 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import BaronRevealModal from './BaronRevealModal';
+import DrawNewCardModal from './DrawNewCardModal';
 import LastCardPlayedModal from './LastCardPlayedModal';
 import CardRevealModal from './CardRevealModal';
 import SwitchCardModal from './SwitchCardModal';
 import WinnerModal from './WinnerModal';
-import { closeEndGameModal } from '../store/actions';
+import { closeEndGameModal, toggleDrawNewCard } from '../store/actions';
 
-import {
-  activePlayerIdSelector,
-  baronRevealDataSelector,
-  currUserIdSelector,
-  gameStateSelector,
-  lastCardPlayedSelector,
-  playersSelector,
-  playerOrderSelector,
-  showCardModalSelector,
-  cardRevealSelector,
-  switchCardDataSelector,
-  winnerIdsSelector,
-} from '../store/selectors';
+import * as selectors from '../store/selectors';
 import PlayerView from './PlayerView';
 import { STATE_PENDING } from '../constants';
 
@@ -34,17 +23,19 @@ const getPlayersInOrder = (playerOrder, players, currUserId) => {
 };
 
 function Board() {
-  const activePlayerId = useSelector(activePlayerIdSelector);
-  const baronRevealData = useSelector(baronRevealDataSelector);
-  const currUserId = useSelector(currUserIdSelector);
-  const gameState = useSelector(gameStateSelector);
-  const lastCardPlayed = useSelector(lastCardPlayedSelector);
-  const players = useSelector(playersSelector);
-  const playerOrder = useSelector(playerOrderSelector);
-  const cardReveal = useSelector(cardRevealSelector);
-  const showCardModal = useSelector(showCardModalSelector);
-  const switchCardData = useSelector(switchCardDataSelector);
-  const winnerIds = useSelector(winnerIdsSelector);
+  const activePlayerId = useSelector(selectors.activePlayerIdSelector);
+  const baronRevealData = useSelector(selectors.baronRevealDataSelector);
+  const currUserId = useSelector(selectors.currUserIdSelector);
+  const gameState = useSelector(selectors.gameStateSelector);
+  const lastCardPlayed = useSelector(selectors.lastCardPlayedSelector);
+  const players = useSelector(selectors.playersSelector);
+  const playerOrder = useSelector(selectors.playerOrderSelector);
+  const cardReveal = useSelector(selectors.cardRevealSelector);
+  const showCardModal = useSelector(selectors.showCardModalSelector);
+  const showDrawNewCardModal = useSelector(selectors.showDrawNewCardModalSelector);
+  const socket = useSelector(selectors.socketSelector);
+  const switchCardData = useSelector(selectors.switchCardDataSelector);
+  const winnerIds = useSelector(selectors.winnerIdsSelector);
 
   const dispatch = useDispatch();
 
@@ -61,6 +52,10 @@ function Board() {
   }
 
   const onCloseEndGameModal = () => dispatch(closeEndGameModal());
+  const onDecideDrawNewCard = willDraw => {
+    socket.emit('decideDrawNewCard', { willDraw });
+    dispatch(toggleDrawNewCard({ show: false }))
+  };
 
   const playersInOrder = getPlayersInOrder(playerOrder, players, currUserId);
 
@@ -102,6 +97,9 @@ function Board() {
           players={players}
           showCardModal={showCardModal}
         />
+      }
+      {
+        <DrawNewCardModal show={showDrawNewCardModal} onDecide={onDecideDrawNewCard} />
       }
       {
         winnerIds &&

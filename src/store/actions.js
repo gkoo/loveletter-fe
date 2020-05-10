@@ -10,7 +10,7 @@ export const LAST_CARD_PLAYED = 'LAST_CARD_PLAYED';
 export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const NEW_LEADER = 'NEW_LEADER';
 export const NEW_USER = 'NEW_USER';
-export const USER_DISCONNECT = 'USER_DISCONNECT';
+export const TOGGLE_DRAW_NEW_CARD = 'TOGGLE_DRAW_NEW_CARD';
 export const RECEIVE_DEBUG_INFO = 'RECEIVE_DEBUG_INFO';
 export const RECEIVE_GAME_DATA = 'RECEIVE_GAME_DATA';
 export const RECEIVE_INIT_DATA = 'RECEIVE_INIT_DATA';
@@ -18,6 +18,7 @@ export const SAVE_NAME = 'SAVE_NAME';
 export const SHOW_ALERT = 'SHOW_ALERT';
 export const SWITCH_CARD_DATA = 'SWITCH_CARD_DATA';
 export const TOGGLE_RULES_MODAL = 'TOGGLE_RULES_MODAL';
+export const USER_DISCONNECT = 'USER_DISCONNECT';
 
 // Actions
 export function baronReveal(baronData) {
@@ -84,6 +85,13 @@ export function newUser({ id, name, isLeader }) {
   return {
     payload: { id, name, isLeader },
     type: NEW_USER,
+  }
+}
+
+export function toggleDrawNewCard({ show }) {
+  return {
+    payload: { show },
+    type: TOGGLE_DRAW_NEW_CARD,
   }
 }
 
