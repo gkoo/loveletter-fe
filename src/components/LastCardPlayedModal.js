@@ -3,7 +3,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 
 import Card from './Card';
-import { CARD_CARDINAL, CARD_PRIEST, CARD_BARON } from '../constants';
+import { CARD_CARDINAL, CARD_PRIEST, CARD_BARON, CARD_DOWAGER_QUEEN } from '../constants';
 
 function LastCardPlayedModal({
   baronRevealData,
@@ -40,7 +40,7 @@ function LastCardPlayedModal({
     if (card.type === CARD_CARDINAL) {
       return !multiTargetPlayerIds.includes(currUserId) && currUserId !== playerId;
     }
-    if (card.type === CARD_BARON) {
+    if ([CARD_BARON, CARD_DOWAGER_QUEEN].includes(card.type)) {
       return ![playerId, targetPlayerId].includes(currUserId);
     }
     if (card.type === CARD_PRIEST) {
