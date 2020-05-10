@@ -135,7 +135,10 @@ export default function reducer(state = stateToUse, action) {
     case actions.DISMISS_REVEAL:
       return {
         ...state,
+        baronRevealData: null,
+        cardReveal: null,
         showCardModal: false,
+        switchCardData: null,
       };
 
     case actions.END_GAME:

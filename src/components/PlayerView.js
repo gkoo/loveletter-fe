@@ -11,6 +11,14 @@ import {
 } from '../store/selectors';
 import { STATE_STARTED } from '../constants';
 
+const renderTokens = (player) => {
+  const tokens = [];
+  for (let i=0; i < player.numTokens; ++i) {
+    tokens.push('❤️');
+  }
+  return tokens.join('');
+};
+
 function PlayerView({ player, active, allPlayers }) {
   const activePlayerId = useSelector(activePlayerIdSelector);
   const currUserId = useSelector(currUserIdSelector);
@@ -26,21 +34,14 @@ function PlayerView({ player, active, allPlayers }) {
     socket.emit('playCard', { cardId: card.id, effectData });
   };
 
-  const renderTokens = () => {
-    const tokens = [];
-    for (let i=0; i < player.numTokens; ++i) {
-      tokens.push('❤️');
-    }
-    return tokens.join('');
-  };
-
   return (
     <div className={cx('player-view', { active })}>
       <div className='player-name'>
         <h3>
           {player.isKnockedOut && '💀'}
+          {player.jesterRecipientId && '🤡'}
           {player.name}
-          {renderTokens()}
+          {renderTokens(player)}
         </h3>
       </div>
       {
